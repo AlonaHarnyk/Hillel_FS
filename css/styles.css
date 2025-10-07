@@ -1,0 +1,99 @@
+div > p {
+  color: orange;
+}
+
+div > p.test {
+  color: #008080;
+}
+
+/* p {
+    color: blue !important;  
+    font-size: 20px;;
+} */
+
+.test {
+  color: blueviolet !important;
+}
+
+#test {
+  color: greenyellow;
+}
+
+/* p {
+    font-size: 40px;
+}
+
+p {
+    font-size: 20px;
+} */
+
+/* .list + .text {
+    background-color: beige;
+} */
+
+.list ~ .text {
+  background-color: beige;
+}
+
+.link {
+  color: brown;
+}
+
+span {
+  color: chocolate;
+}
+
+a {
+  color: inherit;
+}
+
+a:hover {
+    background-color: chartreuse;
+}
+
+a:focus {
+    background-color: chartreuse;
+}
+
+a:active {
+    background-color: blue;
+}
+
+small, .strong {
+    background: #008080;
+}
+
+ul li:first-child {
+    font-weight: bold;
+}
+
+ul li:last-child {
+    color: red;
+}
+
+ul li:nth-child(2) {
+    background-color: green;
+}
+
+div p:first-of-type {
+    text-decoration: underline;
+}
+
+div p:last-of-type {
+    border-bottom: 1px solid black;
+}
+
+.after {
+    color: aquamarine;
+    position: relative;
+}
+
+.after::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50px;
+    width: 100%;
+    height: 2px;
+    background-color: blueviolet;
+}

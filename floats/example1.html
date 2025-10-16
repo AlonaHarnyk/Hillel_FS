@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Приклад float і clear</title>
+    <style>
+      .box {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 5px;
+      }
+
+      .left {
+        float: left;
+        width: 150px;
+        height: 100px;
+        background-color: lightblue;
+      }
+
+      .right {
+        float: right;
+        width: 150px;
+        height: 100px;
+        background-color: lightgreen;
+      }
+
+      .content {
+        background-color: #f0f0f0;
+        padding: 10px;
+      }
+
+      .clear {
+        clear: both;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box left">Ліворуч (float: left)</div>
+    <div class="box right">Праворуч (float: right)</div>
+    <div class="content">
+      Цей текст обтікає плаваючі блоки (float). Якщо потрібно, щоб новий елемент
+      з’явився нижче обох — додаємо
+      <code>clear</code>
+      .
+    </div>
+
+    <div class="clear"></div>
+
+    <div class="box">
+      Цей блок з
+      <code>clear: both</code>
+      розташований під плаваючими елементами.
+    </div>
+  </body>
+</html>

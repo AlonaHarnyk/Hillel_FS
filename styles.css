@@ -1,0 +1,61 @@
+header {
+  height: 80px;
+  background-color: aquamarine;
+  position: fixed;
+  width: 100%;
+}
+
+.section1 {
+  height: 600px;
+  padding-top: 80px;
+  background-color: blueviolet;
+}
+
+.section2 {
+  height: 600px;
+  background-color: brown;
+}
+
+.section3 {
+  height: 600px;
+  background-color: beige;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+h2 {
+  position: sticky;
+  top: 0;
+  left: 50px;
+}
+
+.footer1 {
+  background-color: red;
+}
+
+.footer2 {
+  background-color: orange;
+}
+
+.wrapper {
+  border: 2px solid black;
+  border-radius: 10px;
+  width: 200px;
+  overflow: hidden;
+}
+
+img {
+  display: block;
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      .box {
+        border: 1px solid #ccc;
+        margin: 5px;
+        padding: 5px;
+      }
+
+      .left {
+        float: left;
+        width: 120px;
+        height: 60px;
+        background-color: lightblue;
+      }
+
+      .clear-left {
+        clear: left;
+        background-color: lightgray;
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box left">Лівий float</div>
+    <p>Цей текст обтікає лівий блок.</p>
+
+    <p class="clear-left">
+      Я з `clear: left;` — тому стою нижче лівого плаваючого елемента, навіть
+      якщо праворуч ще є місце.
+    </p>
+  </body>
+</html>

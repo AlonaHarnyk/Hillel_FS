@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      .right {
+        float: right;
+        width: 120px;
+        height: 60px;
+        background-color: lightgreen;
+      }
+
+      .clear-right {
+        clear: right;
+        background-color: lightgray;
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Текст ліворуч обтікає плаваючий блок.</p>
+    <div class="right">Правий float</div>
+
+    <p>Ще трохи тексту, що обтікає.</p>
+
+    <p class="clear-right">
+      Я маю `clear: right;` — тому починаюся нижче всіх float-елементів
+      праворуч.
+    </p>
+  </body>
+</html>

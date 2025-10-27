@@ -1,0 +1,83 @@
+.container {
+  width: 1120px;
+  margin: 0 auto;
+  background-color: blueviolet;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+.item {
+  background-color: aqua;
+  width: 256px;
+  height: 256px;
+  position: relative;
+  /* transform: scale(1.5); */
+  animation-name: increase;
+  animation-duration: 2s;
+  animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.item::after {
+  content: "";
+  display: block;
+  width: 236px;
+  height: 236px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  border: 5px solid green;
+  animation: motion 300ms infinite linear;
+}
+
+.item:hover {
+  transform: skew(-10deg);
+}
+
+.item p {
+  margin: 0;
+  background-color: brown;
+  color: aliceblue;
+  padding: 10px;
+  font-size: 18px;
+  /* transition-property: color;
+  transition-duration: 1000ms;
+  transition-timing-function: ease-in-out; */
+  transition: color 1000ms ease-in-out, opacity 1000ms ease-in-out,
+    transform 1000ms ease-in-out;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  opacity: 1;
+}
+
+.item p:hover {
+  color: blue;
+  opacity: 0.8;
+  transform: translate(-50%, -50%) rotate(360deg);
+  /* transition-property: color;
+  transition-duration: 1000ms;
+  transition-timing-function: ease-in-out; */
+}
+
+@keyframes increase {
+  0% {
+    transform: scale(0.25);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes motion {
+  0% {
+    border-style: dotted;
+  }
+
+  0% {
+    border-style: dashed;
+  }
+}

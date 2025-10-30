@@ -1,0 +1,19 @@
+.about {
+  background-color: var(--main-color);
+
+  .container {
+    display: flex;
+  }
+
+  &__text {
+    color: green;
+  }
+}
+
+// .about .container {
+//   background-color: red;
+// }
+
+// .about__text {
+//   color: green;
+// }

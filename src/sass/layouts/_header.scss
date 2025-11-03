@@ -1,0 +1,24 @@
+.header {
+  position: absolute;
+  width: 100%;
+
+  & .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__logo {
+    font-style: italic;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.25;
+    text-decoration-line: underline;
+    color: #222;
+  }
+
+  &__links {
+    display: flex;
+    gap: 24px;
+  }
+}

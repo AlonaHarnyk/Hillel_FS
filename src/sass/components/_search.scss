@@ -1,0 +1,31 @@
+.search {
+  width: 326px;
+  position: relative;
+  margin-bottom: 60px;
+
+  &__input {
+    width: 326px;
+    height: 48px;
+    border: none;
+    padding: 14px 16px;
+  }
+
+  &__input:focus {
+    outline: 2px solid #000;
+  }
+
+  &__input::placeholder {
+    color: #999;
+    font-size: 14px;
+    line-height: 1.43;
+  }
+
+  &__button {
+    padding: 8px;
+    background-color: #402f2c;
+    border: none;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+  }
+}

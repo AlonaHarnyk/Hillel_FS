@@ -1,0 +1,14 @@
+.navigation {
+  &__list {
+    display: flex;
+    gap: 40px;
+  }
+
+  &__link {
+    font-size: 16px;
+    line-height: 1.25;
+    color: #222;
+    padding: 45px 0;
+    display: block;
+  }
+}

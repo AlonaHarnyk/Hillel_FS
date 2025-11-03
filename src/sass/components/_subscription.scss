@@ -1,0 +1,31 @@
+.subscription {
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  &__input {
+    width: 386px;
+    height: 56px;
+    background-color: #fff;
+    padding: 18px;
+  }
+
+  &__input::placeholder {
+    color: #555;
+    font-size: 16px;
+    line-height: 1.25;
+  }
+
+  &__button {
+    padding: 10px 20px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.43;
+    color: #fff;
+    background-color: #402f2c;
+    border: none;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+  }
+}

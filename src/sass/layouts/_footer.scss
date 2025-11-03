@@ -1,0 +1,16 @@
+.footer {
+  background-color: #fafafa;
+
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__subscription {
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 1.28;
+    color: #222;
+  }
+}

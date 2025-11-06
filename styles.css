@@ -1,0 +1,38 @@
+.home {
+  fill: red;
+  stroke: blue;
+  background-color: pink;
+}
+
+.social-list {
+  display: flex;
+  list-style-type: none;
+  gap: 20px;
+}
+
+.social-list a {
+  display: block;
+  padding: 20px;
+  background-color: beige;
+  border-radius: 50%;
+  transition: background-color 500ms linear;
+}
+
+.social-list a:hover,
+.social-list a:focus {
+  background-color: brown;
+}
+
+.social {
+  fill: yellow;
+  stroke: orange;
+  width: 44px;
+  height: 44px;
+  transition: fill 500ms linear, stroke 500ms linear;
+}
+
+.social-list a:hover .social,
+.social-list a:focus .social {
+  fill: orange;
+  stroke: yellow;
+}

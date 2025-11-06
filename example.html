@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 1 -->
+    <button aria-label="Пошук">🔍</button>
+    <!-- 2 -->
+    <div role="checkbox" aria-checked="false" tabindex="0">Підписатися</div>
+    <!-- 3 -->
+    <button aria-controls="menu" aria-expanded="false">Меню</button>
+    <ul id="menu" hidden>
+      <li><a href="#home">Головна</a></li>
+      <li><a href="#about">Про нас</a></li>
+    </ul>
+    <!-- 4 -->
+    <label for="email">Email:</label>
+    <input type="email" id="email" aria-describedby="emailHint" />
+    <p id="emailHint">Ми не передаємо вашу адресу третім особам.</p>
+    <!-- 5 -->
+    <div aria-live="polite" id="status">Завантаження...</div>
+    <!-- 6 -->
+    <div
+      role="progressbar"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="45"
+    >
+      Завантажено 45%
+    </div>
+    <!-- 7 -->
+    <div role="tablist">
+      <button role="tab" aria-selected="true" aria-controls="panel1">
+        Опис
+      </button>
+      <button role="tab" aria-selected="false" aria-controls="panel2">
+        Відгуки
+      </button>
+    </div>
+
+    <div id="panel1" role="tabpanel">Текст опису...</div>
+    <div id="panel2" role="tabpanel" hidden>Відгуки користувачів...</div>
+  </body>
+</html>

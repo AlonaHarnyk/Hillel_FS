@@ -1,0 +1,12 @@
+.box {
+    width: 300px;
+    height: 200px;
+    background-image: url('./images/cat1.jpeg');
+    background-size: 300px 200px;
+}
+
+@media (min-resolution: 192dpi) {
+    .box {
+        background-image: url('./images/cat2.jpeg');
+    }
+}

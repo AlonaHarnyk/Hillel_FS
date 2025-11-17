@@ -31,6 +31,27 @@ p {
   margin: 0 auto;
 }
 
+.icon {
+  fill: transparent;
+  stroke: #222;
+  transition: stroke 500ms ease-in-out;
+}
+
+.icon:hover, .icon:focus {
+  stroke: #999;
+}
+
+.icon--fill {
+  fill: #222;
+  transition: fill 500ms ease-in-out;
+}
+
+.icon--fill:hover,
+.icon--fill:focus {
+  fill: #999;
+}
+
+
 header {
   position: absolute;
   width: 100%;
@@ -67,6 +88,12 @@ header .container {
   color: #222;
   padding: 45px 0;
   display: block;
+  transition: color 500ms ease-in-out;
+}
+
+.navigation__link:hover,
+.navigation__link:focus {
+  color: #999;
 }
 
 .hero {
@@ -80,7 +107,7 @@ header .container {
   margin: 0 auto;
   background-image: url("./images//hero-picture.png");
   background-repeat: no-repeat;
-  background-position: right;;
+  background-position: right;
 }
 
 .hero__title {
@@ -108,13 +135,14 @@ header .container {
   color: #fff;
   background-color: #402f2c;
   border: none;
+  transition: background-color 500ms ease-in-out;
 }
 
 .hero__controls {
   display: flex;
   justify-content: center;
   padding: 50px 0;
-  background-color: #F9F6F5;
+  background-color: #f9f6f5;
   width: 146px;
   margin: 0 auto;
 }
@@ -154,4 +182,15 @@ header .container {
   position: absolute;
   top: 8px;
   right: 8px;
+  width: 32px;
+  height: 32px;
+  transition: background-color 500ms ease-in-out;
 }
+
+.hero__button:hover,
+.hero__button:focus,
+.search__button:hover,
+.search__button:focus {
+  background-color: #999;
+}
+

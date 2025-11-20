@@ -73,11 +73,14 @@ body.modal-open {
   left: 0;
   background-color: #00000033;
   z-index: 100;
+  opacity: 1;
+  transition: opacity 500ms ease;
 }
 
 .backdrop.hidden {
   opacity: 0;
   pointer-events: none;
+  transition: opacity 400ms ease;
 }
 
 .modal {
@@ -87,7 +90,13 @@ body.modal-open {
   position: relative;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  transition: transform 400ms ease;
+  padding: 50px 40px;
+}
+
+.backdrop.hidden .modal {
+  transform: translate(-50%, -50%) scale(0.4) rotate(-35deg);
 }
 
 .modal__close {
@@ -95,6 +104,88 @@ body.modal-open {
   top: 10px;
   right: 10px;
 }
+
+.form {
+  height: 100%;
+  background-color: white;
+  padding: 30px 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.input-group {
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  outline: none;
+  transition: border-color 250ms ease-in-out;
+}
+ 
+.input-group input:focus {
+  border-color: green;
+}
+
+.input-group label {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  color: #777;
+  padding: 0 4px;
+  transition: transform 250ms ease-in-out;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label
+{
+  color: green;
+  font-size: 12px;
+  transform: translateY(-28px);
+}
+
+.form button {
+  display: block;
+}
+
+.checkbox {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.checkbox input {
+  width: 0;
+  height: 0;
+  appearance: none;
+  position: absolute;
+}
+
+.checkmark {
+  width: 18px;
+  height: 18px;
+  border: 2px solid black;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkmark svg {
+  opacity: 0;
+}
+
+.checkbox input:checked + .checkmark svg {
+  opacity: 1;
+}
+
 
 /* Mobile-menu */
 
@@ -124,6 +215,32 @@ header .container {
   align-items: center;
   margin-left: auto;
   display: none;
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  left: -100%;
+  background-color: bisque;
+  z-index: 999;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: left 250ms ease;
+}
+
+.mobile-menu.is-open {
+  left: 0;
+}
+
+.close-menu {
+  width: 100px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 
 @media screen and (min-width: 480px) {
@@ -159,7 +276,7 @@ header .container {
     padding: 30px 0;
     display: block;
   }
-  
+
   .contact-list {
     display: flex;
     flex-direction: column;

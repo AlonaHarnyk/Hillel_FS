@@ -33,12 +33,36 @@
         </a>
       </li>
     </ul> -->
-    <!-- <button data-modal-open>Open modal</button>
+    <button data-modal-open>Open modal</button>
     <div class="backdrop hidden" data-modal>
       <div class="modal">
         <button class="modal__close" data-modal-close>Close button</button>
+        <form class="form">
+          <div class="input-group">
+            <input type="text" id="name" placeholder=" " required />
+            <label for="name">Your name</label>
+          </div>
+          <div class="input-group">
+            <input type="email" id="email" placeholder=" " required />
+            <label for="email">Your email</label>
+          </div>
+          <div class="input-group">
+            <input type="password" id="password" placeholder=" " required />
+            <label for="password">Your password</label>
+          </div>
+          <label class="checkbox">
+            <input type="checkbox" />
+            <span class="checkmark">
+              <svg width="14" height="14">
+                <use href="./images/sprite.svg#icon-checkmark"></use>
+              </svg>
+            </span>
+            <span>Agree with police of privacy</span>
+          </label>
+          <button>Register</button>
+        </form>
       </div>
-    </div> -->
+    </div>
     <!-- <header>
       <div class="container">
         <a href="">LOGO</a>
@@ -55,7 +79,26 @@
             <li><a href="mailto:testuser@gmail.com">testuser@gmail.com</a></li>
           </ul>
         </div>
-        <button class="open-menu">Open</button>
+        <button class="open-menu" data-menu-open>
+          <svg width="40" height="40">
+            <use href="./images/sprite.svg#icon-menu"></use>
+          </svg>
+        </button>
+      </div>
+      <div class="mobile-menu" data-menu>
+        <button class="close-menu" data-menu-close>Close</button>
+        <a href="">LOGO</a>
+        <nav class="nav">
+          <ul class="nav-list">
+            <li><a href="" class="nav-link">Link1</a></li>
+            <li><a href="" class="nav-link">Link2</a></li>
+            <li><a href="" class="nav-link">Link3</a></li>
+          </ul>
+        </nav>
+        <ul class="contact-list">
+          <li><a href="tel:380563452617">+380563452617</a></li>
+          <li><a href="mailto:testuser@gmail.com">testuser@gmail.com</a></li>
+        </ul>
       </div>
     </header> -->
     <script src="./modal.js"></script>

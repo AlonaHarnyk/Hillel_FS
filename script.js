@@ -1,161 +1,178 @@
-// let value = 5;
-// value = value + 10;
-// console.log(value); // 15
-// value = value + 10;
-// console.log(value); // 25
+// ❗️❗️❗️  Логічні операторы (&&,  ||,  !)
 
-// value += 10;
-// console.log(value); // 15
-// value += 10;
-// console.log(value); // 25
+// // У логічних операціях  відбуваєтьмя приведення типів операндів до true або false.
 
-// let value1 = 10;
-// value1 = value1 - 2;
-// console.log(value1); // 8
-// value1 = value1 - 2;
-// console.log(value1); // 6
+// (falsy) значення, що приводяться до false у логічному перетворенні:
+// 0
+// NaN
+// null
+// undefined
+// порожній рядок
+// false.
 
-// value1 -= 2;
-// console.log(value1); // 8
-// value1 -= 2;
-// console.log(value1); // 6
+// Абсолютно все інше приводиться до true.
 
-// <, >, <=, >=, ==, ===, !=, !==
+// && - запинається на false
+// // Якщо всі операнди були приведені до true, повертається остання.
+// // Якщо результат приведення операнди до буля false, перевірка зупиняється та повертається вихідне значення цього операнда.
 
-// ❗️❗️❗️ Правила приведення різних типів до числа:
+// || - запинається на true
+// Повертає перше правдиве (приведене до true) значення або останнє, якщо таке truthy значення не знайдено.
 
-// // true --> 1
-// // false --> 0
-// // '', а також рядок з пробілами --> 0
-// // null --> 0
-// // undefined --> NaN
-// // не порожній рядок --> якщо рядок складається лише з цифр, відбувається приведення до числа. В іншому випадку - NaN.
+// ! - інвертує true в false, або false в true
 
-// ❗️❗️❗️ Загальні правила порівняння
+// console.log(true && 3); // 3
+// console.log(false && 3); // false
+// console.log(false && false); // false
+// console.log(true && 4 && "kiwi"); // 'kiwi'
+// console.log(true && "" && "kiwi"); // ''
+// console.log(true && " " && "kiwi"); // 'kiwi'
+// console.log(true && 0 && "kiwi"); // 0
+// console.log(true || 3); // true
+// console.log(true || 3 || 4); // true
+// console.log(true || false || 7); // true
+// console.log(false || true || 7); // true
+// console.log(null || 2 || undefined); // 2
+// console.log((1 && null && 2) > 0); // false
+// console.log(null || (2 && 3) || 4); // 3
+// console.log(null || (null && 3) || 4); // 4
 
-// Результатом порівняння буде бульове значення.
+// ?? - оператор нульового злиття
 
-// При порівнянні різних типів операнди приводяться до числа (крім операторів === та !==)
-// null не дорівнює нічому крім себе та undefined.
-// undefined не дорівнює нічому крім себе та null.
-// NaN не дорівнює нічому, навіть самому собі
-// Рядки між собою порівнюються за unicode (посимвольно).
+// console.log(null ?? 1); // 1;
+// console.log(undefined ?? 1); // 1
+// console.log(false ?? 1); // false
+// console.log(0 ?? 1); // false
 
-// console.log(null == 0); // false
-// console.log(undefined == 0); // false
-// console.log(undefined == null); // true
-// console.log("123" == 123); // true
-// console.log(true == "1"); // true
-// console.log(4 == 5); // false
-// console.log("123" === 123); // false
-// console.log(null === null); // true
-// console.log(2 + 2 === 4); // true
-// console.log(NaN === NaN); // false
-// console.log(undefined === null); // false
-// console.log("4" != 4); // false
-// console.log("4" !== 4); // true
-// console.log(null > 0); // false
-// console.log(null >= 0); // true
+// ❗️❗️❗️ Оператори розгалудження
 
-// ❗️❗️❗️ Операції з приведенням типів
+// const number1 = Number(prompt("Please, enter a number 1"));
+// const number2 = Number(prompt("Please, enter a number 2"));
 
-// console.log(2 + 5 + "" + 1 + 0 - 10); // 700
-// console.log("710bjk" - 10); // NaN
-// console.log("" + 1 - 0); // 1
-// console.log(true + false); // 1
-// console.log(true + ""); // 'true'
-// console.log(true + "false"); // 'truefalse'
-// // console.log(true - "false"); // NaN
-// console.log(6 / "3"); // 2
-// console.log("2" * "3"); // 6
-// console.log(4 + 5 + "px"); // '9px'
-// console.log("$" + 4 + 5); // '$45'
-// console.log("4" - 2); // 2
-// console.log("4" + 2); // '42'
-// console.log("4" / 2); // 2
-// console.log("4px" - 2); // NaN
-// console.log(7 / 0); // Infinity
-// console.log("  -9  " + 5); // '  -9  5'
-
-// ❗️❗️❗️ Приведення до рядка
-// const num = 123;
-// console.log(num)
-// const str1 = String(num)
-// console.log(str1)
-// const str2 = num + ''
-// console.log(str2)
-// const str3 = num.toString()
-// console.log(str3)
-
-// ❗️❗️❗️ Шаблонні рядки
-
-// const userName = prompt("What is your name?");
-// // console.log(userName);
-
-// const text = `My name is ${userName}`;
-
-// console.log(text);
-
-// const word = "tEsT";
-// console.log(word.toLowerCase()); // test
-// console.log(word.toUpperCase()); // TEST
-
-// const word1 = "superjavascript";
-// console.log(word1.includes("super")); // true
-// console.log(word1.includes("html")); // false
-
-// console.log(word1.indexOf("java")); // 5
-// console.log(word1.indexOf("html")); // -1
-// console.log(word1.indexOf("a")); // 6
-// console.log(word1.lastIndexOf("a")); // 8
-
-// const word2 = "    string ";
-// console.log(word2.trim());
-
-// console.log(word1.slice());
-// console.log(word1.slice(0));
-// console.log(word1.slice(0, word1.length));
-
-// console.log(word1.slice(5)); //javascript
-// console.log(word1.slice(0, 5)); //super
-
-// console.log(word1[5]); // j
-
-// ❗️❗️❗️ Functions
-
-// function logMessageWithName() {
-//   const userName = prompt("What is your name?");
-
-//   const text = `My name is ${userName}`;
-
-//   console.log(text);
+// if (number1 > number2) {
+//   console.log("I'm here");
 // }
 
-// logMessageWithName();
-
-// function add(number1, number2) {
-//   console.log(number1 + number2);
+// if (number1 > number2) {
+//   console.log("+");
 // }
 
-// add(10, 20);
-
-// add(3, 7);
-
-// function add1(number1, number2) {
-//   return number1 + number2;
+// if (number1 < number2) {
+//   console.log("-");
 // }
 
-// let sum = add1(10, 20);
-
-// // sum += 10;
-
-// console.log(sum);
-
-// console.log(add1(3, 7));
-
-// function add2(number1, number2) {
-//   const sum = number1 + number2;
-//   return sum;
+// if (number1 > number2) {
+//   console.log("+");
+// } else {
+//   console.log("-");
 // }
 
-// console.log(add2(4, 16));
+// if (number1 > number2) {
+//   console.log("+");
+// } else if (number1 < number2) {
+//   console.log("-");
+// } else if (number1 === number2) {
+//   console.log("=");
+// }
+
+// if (number1 > number2) {
+//   console.log("+");
+// } else if (number1 < number2) {
+//   console.log("-");
+// } else {
+//   console.log("=");
+// }
+
+// if (number1 === number2) {
+//   console.log("=");
+// } else {
+//   if (number1 > number2) {
+//     console.log("+");
+//   } else {
+//     console.log("-");
+//   }
+// }
+
+// ❗️❗️❗️ Тернарний оператор
+
+// number1 > number2 ? console.log("+") : console.log("-");
+
+// // not recommended
+// number1 === number2
+//   ? console.log("=")
+//   : number1 > number2
+//   ? console.log("+")
+//   : console.log("-");
+
+// ❗️❗️❗️ Switch
+
+// const number3 = Number(prompt("Please, enter number between 1 and 3"));
+
+// if (number3 === 1) {
+//   console.log("You entered 1");
+// } else if (number3 === 2) {
+//   console.log("You entered 2");
+// } else if (number3 === 3) {
+//   console.log("You entered 3");
+// } else {
+//   console.log("You entered another number");
+// }
+
+// switch (number3) {
+//   case 1:
+//     console.log("You entered 1");
+//     break;
+//   case 2:
+//     console.log("You entered 2");
+//     break;
+//   case 3:
+//     console.log("You entered 3");
+//     break;
+//   default:
+//     console.log("You entered another number");
+// }
+
+// const number4 = 57;
+
+// if (number4 >= 50 && number4 <= 100) {
+//   console.log("Here1");
+// }
+
+// if (number4 < 50 || number4 > 100) {
+// //   console.log("Here2");
+// }
+
+// if (0 || !null) {
+//   console.log("Here3");
+// }
+
+// ❗️❗️❗️ Цикли
+
+// let counter = 1;
+
+// while (counter <= 5) {
+//   console.log(counter);
+//   // counter = counter + 1
+//   counter += 1;
+// }
+
+// console.log("Test");
+
+// let number;
+
+// do {
+//   console.log("here");
+//   number = Number(prompt("Input number"));
+// } while (number <= 100);
+
+// console.log(number);
+
+// let a;
+// let b;
+// let c;
+
+// let a, b, c;
+
+// a = 5;
+// b = 10;
+// c = 25;

@@ -1,184 +1,219 @@
-// for (let i = 1; i <= 3; i += 1) {
-//   console.log(i);
-// }
+const students = [
+  {
+    id: "c1f3a1d2-91e2-4a5f-8b39-12ba4c0e1120",
+    name: "Mark Spencer",
+    age: 20,
+    email: "mark.spencer@university.edu",
+    faculty: "Computer Science",
+    isActive: true,
+    courses: ["Algorithms", "Math", "Databases"],
+    averageGrade: 3.6,
+    hobbies: ["gaming", "reading"],
+    livesInDorm: false,
+    balance: 320.5,
+  },
+  {
+    id: "a9e21c72-67b4-49fa-8d11-44d0d9a5e9a2",
+    name: "Anna Kovalenko",
+    age: 19,
+    email: "anna.kovalenko@university.edu",
+    faculty: "History",
+    isActive: true,
+    courses: ["English Literature", "Psychology"],
+    averageGrade: 4.2,
+    hobbies: ["reading", "yoga", "painting"],
+    livesInDorm: true,
+    balance: 150.0,
+  },
+  {
+    id: "f23be9d7-4b11-4af0-9de8-cbaa01f4cfe1",
+    name: "Nikita Orlov",
+    age: 22,
+    email: "nikita.orlov@university.edu",
+    faculty: "Mechanical Engineering",
+    isActive: false,
+    courses: ["Thermodynamics", "Mechanics", "Physics"],
+    averageGrade: 3.1,
+    hobbies: ["cars", "gym"],
+    livesInDorm: true,
+    balance: 80.75,
+  },
+  {
+    id: "d43fbc19-15d5-42b0-ad77-2f22e9559731",
+    name: "Sophia Müller",
+    age: 21,
+    email: "sophia.muller@university.edu",
+    faculty: "History",
+    isActive: true,
+    courses: ["Design Basics", "3D Modeling", "Art History"],
+    averageGrade: 4.0,
+    hobbies: ["sketching", "photography", "traveling"],
+    livesInDorm: false,
+    balance: 410.0,
+  },
+  {
+    id: "e8b7c720-9c32-4e96-bf2d-e24bd2daaa45",
+    name: "Liam Johnson",
+    age: 22,
+    email: "liam.johnson@university.edu",
+    faculty: "Computer Science",
+    isActive: false,
+    courses: ["Marketing", "Finance", "Management"],
+    averageGrade: 3.4,
+    hobbies: ["gym", "chess"],
+    livesInDorm: false,
+    balance: 95.2,
+  },
+  {
+    id: "9e73cc24-31fc-47d8-bb3d-b7dc0b8c5ea9",
+    name: "Emily Carter",
+    age: 20,
+    email: "emily.carter@university.edu",
+    faculty: "Biology",
+    isActive: true,
+    courses: ["Genetics", "Chemistry", "Ecology"],
+    averageGrade: 4.5,
+    hobbies: ["hiking", "photography", "reading"],
+    livesInDorm: true,
+    balance: 520.0,
+  },
+  {
+    id: "b71e4f52-7d0a-4b05-9e16-9542e0b73adb",
+    name: "Taras Melnyk",
+    age: 22,
+    email: "taras.melnyk@university.edu",
+    faculty: "Computer Science",
+    isActive: false,
+    courses: ["Modern History", "Sociology"],
+    averageGrade: 3.2,
+    hobbies: ["books", "violin", "reading"],
+    livesInDorm: false,
+    balance: 60.0,
+  },
+];
 
-// console.log("test");
+// every;
 
-// for (let i = 1; i <= 100; i += 20) {
-//   console.log(i);
-// }
+// const result1 = students.every(({ age }) => age > 20); // false
+// console.log(result1);
 
-// console.log("test");
+// some
+// const result2 = students.some(({ age }) => age > 20); // true
+// console.log(result2);
 
-// for (let i = 100; i >= 20; i -= 30) {
-//   console.log(i);
-// }
+// toSorted
 
-// console.log("test");
+// const nums = [26, 40, 59, 36, 10];
 
-// const word = "javascript";
-// let word2 = "";
+// console.log(nums.toSorted());
 
-// for (let i = 0; i < word.length; i += 1) {
-//   // console.log(word[i]);
-//   word2 += word[i];
-// }
+// const nums1 = [26, 3, 40, 59, 5, 36, 4, 10, 1];
 
-// console.log(word2);
+// console.log(nums1.toSorted());
 
-// for (let i = 1; i <= 10; i += 1) {
-//   console.log(i);
-//   if (i === 5) {
-//     break;
+// console.log(nums1.toSorted((a, b) => a - b)); // 1 -> 100
+
+// console.log(nums1.toSorted((a, b) => b - a)); // 100 -> 1
+
+// const letters = [
+//   "apple",
+//   "cake",
+//   "potato",
+//   "tomato",
+//   "cucumber",
+//   "banana",
+//   "cabbage",
+// ];
+
+// console.log(letters.toSorted());
+
+// const letters1 = [
+//   "apple",
+//   "cake",
+//   "Potato",
+//   "tomato",
+//   "Cucumber",
+//   "banana",
+//   "Cabbage",
+// ];
+
+// console.log(letters1.toSorted());
+
+// console.log(letters1.toSorted((a, b) => a.localeCompare(b))); // a -> z
+// console.log(letters1.toSorted((a, b) => b.localeCompare(a))); // z -> a
+
+// console.log(students.toSorted((a, b) => a.age - b.age));
+// console.log(students.toSorted((a, b) => a.name.localeCompare(b.name)));
+
+// reduce
+
+// const numbers = [2, 6, 3, 8, 30, 34, 25];
+
+// const sum = numbers.reduce((acc, item, idx) => {
+//   console.log(`Iteration # ${idx + 1}`);
+//   console.log("acc", acc);
+//   const res = acc + item;
+//   console.log("res", res);
+//   return res;
+// }, 0);
+
+// console.log(sum);
+
+// const filteredStudents = students.filter((item) => item.isActive);
+// const names = filteredStudents.map((item) => item.name);
+// // const sortedNames = names.toSorted((a, b) => a.localeCompare(b));
+
+// const sortedNames = students
+//   .filter((item) => item.isActive)
+//   .map((item) => item.name)
+//   .toSorted((a, b) => a.localeCompare(b));
+
+// console.log(sortedNames);
+
+// const activeStudents = students.reduce((acc, item) => {
+//   if (item.isActive) {
+//     acc.push(item.name);
 //   }
-// }
+//   return acc;
+// }, []);
 
-// for (let i = 1; i <= 15; i += 1) {
-//   if (i / 3 === 4 || i / 2 === 5) {
-//     continue;
+// console.log(activeStudents);
+
+// const grouppedStudents = students.reduce(
+//   (acc, item) => {
+//     if (item.livesInDorm) {
+//       acc.dorm.push(item.name);
+//     } else {
+//       acc.notDorm.push(item.name);
+//     }
+//     return acc;
+//   },
+//   {
+//     dorm: [],
+//     notDorm: [],
 //   }
-//   console.log(i);
-// }
+// );
 
-// const a = "test";
+// console.log(grouppedStudents);
 
-// const array = [1, 2, 3, "a", "b", a, true];
+// const grouppedByFaculty = students.reduce((acc, item) => {
+//   if (!acc[item.faculty]) {
+//     acc[item.faculty] = [];
+//   }
 
-// console.log(array.length);
+//   acc[item.faculty].push(item);
 
-// console.log(array[5]);
+//   return acc;
+// }, {});
 
-// for (let i = 0; i < array.length; i += 1) {
-//   console.log(array[i]);
-// }
+// console.log(grouppedByFaculty);
 
-// for (let item of array) {
+// const hobbies = students.flatMap((item) => item.hobbies);
+// const uniqueHobbies = hobbies.filter((item, idx) => {
+//   console.log(`Iteration # ${idx + 1}`);
 //   console.log(item);
-//   //   if (item === "a") {
-//   //     break;
-//   //   }
-// }
-
-// const b = 5;
-// const c = 5;
-// console.log(b === c); //true
-// const d = b;
-// console.log(d === b); //true
-
-// const arr1 = [1, 2, 3];
-// const arr2 = [1, 2, 3];
-// // console.log(arr1 === arr2); // false
-// // console.log([1, 2, 3] === [1, 2, 3]); // false
-// const arr3 = arr1;
-// // console.log(arr3 === arr1); // true
-
-// arr1[0] = 10;
-// console.log(arr1); // [10, 2, 3]
-// console.log(arr3); // [10, 2, 3]
-
-// arr3[2] = 5;
-
-// console.log(arr1); // [10, 2, 5]
-
-// arr1.length = 0;
-
-// console.log(arr1); // []
-// console.log(arr3); // []
-
-// arr1[5] = 100;
-
-// console.log(arr1);
-// console.log(arr1[0]);
-// console.log(arr1[200]);
-
-// let arr4 = [1, 3, 5];
-// let arr5 = arr4;
-
-// // console.log(arr4 == arr5);
-
-// arr4 = [4, 5, 6];
-
-// // console.log(arr4); // [4, 5, 6]
-// // console.log(arr5); // [1, 3, 5]
-
-// // console.log(arr4 == arr5); // false
-
-// arr5 = arr4;
-
-// console.log(arr4); // [4, 5, 6]
-// console.log(arr5); // [4, 5, 6]
-
-// console.log(arr4 == arr5); // true
-
-// const e = [1, 2, [3, 4]];
-// const f = [1, 2, [3, 4]];
-
-// // console.log(e === f);
-
-// // console.log(e[0] === f[0]); // true
-// // console.log(e[2] === f[2]); // false
-
-// console.log(e[2][0]); // 3
-
-// String method
-
-// split
-
-// const string = "t-e-s-t";
-// console.log(string.split("-")); // ['t', 'e', 's', 't']
-
-// ❗️❗️❗️ Array methods
-
-// // join
-// const arr6 = ["a", "b", "c"];
-// console.log(arr6.join("")); // 'abc'
-
-// includes
-// console.log(arr6.includes("a")); // true
-// console.log(arr6.includes("y")); // false
-
-// // indexOf
-// console.log(arr6.indexOf("a")); // 0
-// console.log(arr6.indexOf("y")); // -1
-
-// push
-const arr7 = [];
-const length = arr7.push(1, 2, 3);
-// console.log(arr7); // [1, 2, 3]
-// console.log(length); // 3
-
-// pop
-const elem = arr7.pop();
-// console.log(arr7); // [1, 2]
-// console.log(elem); // 3
-
-// unshift
-const length1 = arr7.unshift(5, 6, 7);
-// console.log(arr7); // [5, 6, 7, 1, 2]
-// console.log(length1); // 5
-
-// shift
-const elem1 = arr7.shift();
-// console.log(arr7); // [6, 7, 1, 2]
-// console.log(elem1); // 5
-
-// slice
-// const arr8 = arr7.slice(0, 2);
-// console.log(arr7); // [6, 7, 1, 2]
-// console.log(arr8); // [6, 7]
-
-// splice
-// const arr9 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-// const deleted = arr9.splice(5, 2);
-// console.log(arr9); // [1, 2, 3, 4, 5, 8, 9]
-// console.log(deleted); // [6, 7]
-
-const arr10 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-const deleted1 = arr10.splice(5, 0, 11, 12, 13, 14, 15);
-// console.log(arr10); // [1, 2, 3, 4, 5, 11, 12, 13, 14, 15, 6, 7, 8, 9]
-// console.log(deleted1); // []
-
-const arr11 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-const deleted2 = arr11.splice(5, 2, 11, 12);
-// console.log(arr11); //[1, 2, 3, 4, 5, 11, 12, 8, 9]
-// console.log(deleted2); //[6, 7]
+//   console.log(hobbies.indexOf(item));
+//   console.log(idx);
+//   return hobbies.indexOf(item) === idx;
+// });
+// console.log(uniqueHobbies);

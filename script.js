@@ -1,149 +1,105 @@
-// "use strict";
+const body = document.body;
 
-// function test() {
-//   console.log(this);
-// }
+// console.log(body);
 
-// // test();
+// const root = document.querySelector("#root");
+// const root = document.getElementById("root");
 
-// const user = {
-//   name: "Anton",
-//   getName() {
-//     // console.log(user.name)
-//     console.log(this.name);
-//   },
-// };
+// const divs = document.querySelectorAll("div");
 
-// // user.getName();
+// console.log(root.parentNode);
 
-// user.email = "test@ukr.net";
+// // console.log(root.childNodes);
 
-// // console.log(user);
+// console.log(root.children);
 
-// user.getTestThis = test;
+// console.log(root.firstElementChild);
 
-// test(); // this => window or undefined
+// console.log(root.lastElementChild);
 
-// user.getTestThis(); // this => user
+// console.log(root.previousElementSibling);
 
-// const test2 = () => {
-//   console.log(this);
-// };
+// console.log(root.nextElementSibling);
 
-// user.getTestThis2 = test2;
+const input = document.querySelector("input");
 
-// test2(); // this => window or undefined
+// input.name = "query";
 
-// user.getTestThis2(); // this => window
+// input.value = "Test";
 
-// const obj = {
-//   testMethod() {
-//     const testFunc = () => {
-//       console.log("testFunc", this); // obj
-//     };
+// const paragraph = document.querySelector(".text");
+// paragraph.textContent = "Hello!";
 
-//     testFunc();
+// paragraph.classList.add("test");
+// console.log(paragraph.classList.contains("text"));
+// console.log(paragraph.classList.contains("item"));
+// // paragraph.classList.remove("test");
+// paragraph.classList.replace("test", "test1");
+// paragraph.classList.toggle("test");
 
-//     console.log("testMethod", this); // obj
-//   },
-// };
+// root.style.backgroundColor = "teal";
+// root.style.fontSize = "20px";
+// root.style.display = "flex";
 
-// obj.testMethod();
+// const img = root.querySelector("img");
 
-// const bmw = {
-//   brand: "BMW",
-//   speed: 160,
-// };
+// console.log(img);
 
-// const audi = {
-//   brand: "Audi",
-//   speed: 140,
-// };
+// console.log(img.hasAttribute("src"));
+// console.log(img.getAttribute("alt"));
 
-// function drive(city, name) {
-//   console.log(this);
-//   console.log(`Hello, ${name}!`);
-//   console.log(`${this.brand} drives with speed ${this.speed} to ${city}`);
-// }
+// console.log(img.alt);
 
-// drive("Lviv", "John");
+// img.setAttribute("src", "img/test.png");
+// // img.removeAttribute("src");
+// console.log(img.attributes);
 
-// drive.call(bmw, "Lviv", "John");
-// drive.apply(audi, ["Kyiv", "Olha"]);
+// const saveBtn = document.querySelector('[data-action="save"]');
+// console.log(saveBtn);
 
-// const bmvDrive = drive.bind(bmw);
+// console.log(saveBtn.dataset.action);
 
-// bmvDrive("Odesa", "Jack");
+// const title = document.createElement("h1");
+// title.textContent = "Title";
+// title.style.color = "orange";
 
-// const audiDrive = drive.bind(audi);
+// body.append(title);
+// body.prepend(title);
+// body.before(title);
+// body.after(title);
 
-// audiDrive("Odesa", "Jack");
+// input.remove();
 
-// const person = {
-//   eyes: "green",
-// };
+// const testDiv = document.querySelector(".test");
 
-// const john = Object.create(person);
+// console.log(testDiv.innerHTML);
 
-// john.weight = 70;
-// // john.eyes = "blue";
+// testDiv.innerHTML = "";
 
-// console.log(john);
+// testDiv.innerHTML = "<h2>Test title :)</h2>";
 
-// console.log(john.weight);
-// console.log(john.eyes);
+// testDiv.insertAdjacentHTML("afterbegin", "<p>123</p>");
+// testDiv.insertAdjacentHTML("afterend", "<p>123</p>");
+// testDiv.insertAdjacentHTML("beforebegin", "<p>123</p>");
+// testDiv.insertAdjacentHTML("beforeend", "<p>123</p>");
 
-// console.log(person.isPrototypeOf(john)); // true
-// console.log(john.isPrototypeOf(person)); // false
+const list = document.querySelector(".list");
 
-// const user = {
-//   name: "Olha",
-//   age: 20,
-//   weight: 56,
-// };
+const users = [
+  { id: 1, name: "Ann", age: 16 },
+  { id: 2, name: "Oleh", age: 35 },
+  { id: 3, name: "Serg", age: 28 },
+];
 
-// console.log(Object.keys(user));
-// console.log(Object.values(user));
-// console.log(Object.entries(user));
+const markup = users
+  .map(
+    ({ id, name, age }) =>
+      `<li id=${id}><h3>${name}</h3><p>${age}</p><button>Delete</button></li>`
+  )
+  .join("");
 
-// for (const key in user) {
-//   console.log(key);
-//   console.log(user[key]);
-// }
+console.log(markup);
 
-// for (const key in john) {
-//   console.log(key);
-//   console.log(john.hasOwnProperty(key));
-//   // console.log(user[key]);
-// }
+list.insertAdjacentHTML("afterbegin", markup);
 
-// console.log(Object.keys(john));
-
-// const testObj = Object.create(null);
-
-// console.log(testObj);
-
-class Student {
-  constructor({ name, age, homeworkResults = [] }) {
-    this.name = name;
-    this.age = age;
-    this.homeworkResults = homeworkResults;
-  }
-
-  addHomeworkResult(result) {
-    this.homeworkResults.push(result);
-  }
-}
-
-const student1 = new Student({ name: "John", age: 15 });
-const student2 = new Student({ age: 20, name: "Jack" });
-const student3 = new Student();
-// const student4 = new Student();
-// const student5 = new Student();
-// console.log(student1);
-// console.log(student2);
-console.log(student3);
-
-student1.addHomeworkResult({ html: 12 });
-
-console.log(student1.homeworkResults);
+// console.log(document.querySelectorl(".abc")); // null

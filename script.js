@@ -1,105 +1,114 @@
-const body = document.body;
+// I
 
-// console.log(body);
+// const clickBtn = document.querySelector(".click");
 
-// const root = document.querySelector("#root");
-// const root = document.getElementById("root");
+// console.log(clickBtn);
 
-// const divs = document.querySelectorAll("div");
+// clickBtn.addEventListener("click", () => {
+//   console.log("Click!!!");
+// });
 
-// console.log(root.parentNode);
+// II
 
-// // console.log(root.childNodes);
+// const buttons = document.querySelectorAll(".list button");
 
-// console.log(root.children);
+// buttons.forEach((button) => {
+//   button.addEventListener("click", (event) => {
+//     console.log(event.target.textContent);
+//   });
+// });
 
-// console.log(root.firstElementChild);
+// III
 
-// console.log(root.lastElementChild);
+// const btn = document.querySelector(".one-time");
 
-// console.log(root.previousElementSibling);
+// const handler = () => {
+//   console.log("One time!");
+// };
 
-// console.log(root.nextElementSibling);
+// btn.addEventListener("click", handler);
 
-const input = document.querySelector("input");
+// setTimeout(() => {
+//   btn.removeEventListener("click", handler);
+// }, 5000);!
 
-// input.name = "query";
+// IV
 
-// input.value = "Test";
+// keydown
+// keyup
 
-// const paragraph = document.querySelector(".text");
-// paragraph.textContent = "Hello!";
+// code
+// key (depends on selected language)
 
-// paragraph.classList.add("test");
-// console.log(paragraph.classList.contains("text"));
-// console.log(paragraph.classList.contains("item"));
-// // paragraph.classList.remove("test");
-// paragraph.classList.replace("test", "test1");
-// paragraph.classList.toggle("test");
+// window.addEventListener("keydown", (event) => {
+//   // console.log(event);
+//   if (event.code === "Escape") {
+//     console.log("Escape");
+//   }
 
-// root.style.backgroundColor = "teal";
-// root.style.fontSize = "20px";
-// root.style.display = "flex";
+//   if (event.altKey && event.key === "Enter") {
+//     console.log("Combination!");
+//   }
+// });
 
-// const img = root.querySelector("img");
+// V
 
-// console.log(img);
+// const form = document.querySelector("form");
 
-// console.log(img.hasAttribute("src"));
-// console.log(img.getAttribute("alt"));
+// form.addEventListener("submit", (event) => {
+//   event.preventDefault();
 
-// console.log(img.alt);
+//   const data = {
+//     name: event.target.elements.name.value,
+//     email: event.target.elements.email.value,
+//   };
 
-// img.setAttribute("src", "img/test.png");
-// // img.removeAttribute("src");
-// console.log(img.attributes);
+//   console.log(data);
+// });
 
-// const saveBtn = document.querySelector('[data-action="save"]');
-// console.log(saveBtn);
+// VI
 
-// console.log(saveBtn.dataset.action);
+// const search = document.querySelector(".search");
 
-// const title = document.createElement("h1");
-// title.textContent = "Title";
-// title.style.color = "orange";
+// search.addEventListener("input", (e) => {
+//   console.log(e.target.value);
+// });
 
-// body.append(title);
-// body.prepend(title);
-// body.before(title);
-// body.after(title);
+// search.addEventListener("focus", (e) => {
+//   console.log("Focused!");
+// });
 
-// input.remove();
+// search.addEventListener("blur", (e) => {
+//   console.log("Focused lost!");
+// });
 
-// const testDiv = document.querySelector(".test");
+// search.addEventListener("change", (e) => {
+//   console.log("Value changed!");
+// });
 
-// console.log(testDiv.innerHTML);
+// VII;
 
-// testDiv.innerHTML = "";
+// const btnList = document.querySelector(".btn-list");
 
-// testDiv.innerHTML = "<h2>Test title :)</h2>";
+// btnList.addEventListener("click", (e) => {
+//   // console.log(e.currentTarget);
+//   if (e.target.nodeName === "BUTTON") {
+//     console.log(e.target.textContent);
+//   }
+//   // console.log("Click!");
+// });
 
-// testDiv.insertAdjacentHTML("afterbegin", "<p>123</p>");
-// testDiv.insertAdjacentHTML("afterend", "<p>123</p>");
-// testDiv.insertAdjacentHTML("beforebegin", "<p>123</p>");
-// testDiv.insertAdjacentHTML("beforeend", "<p>123</p>");
+// VIII
 
-const list = document.querySelector(".list");
+const inputForm = document.querySelector(".input-form");
 
-const users = [
-  { id: 1, name: "Ann", age: 16 },
-  { id: 2, name: "Oleh", age: 35 },
-  { id: 3, name: "Serg", age: 28 },
-];
+inputForm.addEventListener("input", (e) => {
+  // console.log(e.currentTarget.elements.name.value);
+  // console.log(e.currentTarget.elements.email.value);
+  const data = {
+    name: e.currentTarget.elements.name.value,
+    email: e.currentTarget.elements.email.value,
+  };
 
-const markup = users
-  .map(
-    ({ id, name, age }) =>
-      `<li id=${id}><h3>${name}</h3><p>${age}</p><button>Delete</button></li>`
-  )
-  .join("");
-
-console.log(markup);
-
-list.insertAdjacentHTML("afterbegin", markup);
-
-// console.log(document.querySelectorl(".abc")); // null
+  console.log(data);
+});

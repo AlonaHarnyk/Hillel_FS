@@ -1,114 +1,191 @@
-// I
+// console.log(a);
+// // const a = 10;
+// // let a = 10;
+// var a = 10;
+// console.log(a);
 
-// const clickBtn = document.querySelector(".click");
+// const b = 5;
 
-// console.log(clickBtn);
+// function func() {
+//   // const b = 10;
 
-// clickBtn.addEventListener("click", () => {
-//   console.log("Click!!!");
-// });
+//   if (true) {
+//     // const b = 20;
+//     // console.log(b);
+//   } else {
+//     // const b = 25;
+//     // console.log(b);
+//   }
 
-// II
+//   // console.log(b);
+// }
 
-// const buttons = document.querySelectorAll(".list button");
+// func();
 
-// buttons.forEach((button) => {
-//   button.addEventListener("click", (event) => {
-//     console.log(event.target.textContent);
-//   });
-// });
+// console.log(b);
 
-// III
+// Closure
 
-// const btn = document.querySelector(".one-time");
-
-// const handler = () => {
-//   console.log("One time!");
+// const c = () => {
+//   const a = 50;
+//   return () => a + 10;
 // };
 
-// btn.addEventListener("click", handler);
+// const d = c();
 
-// setTimeout(() => {
-//   btn.removeEventListener("click", handler);
-// }, 5000);!
+// console.log(d);
 
-// IV
+// console.log(d());
 
-// keydown
-// keyup
+// (function () {
+//   const a = 20;
+//   const b = 80;
+//   console.log(a + b);
+// })();
 
-// code
-// key (depends on selected language)
+// // (() => {
+// console.log(200);
+// // })();
 
-// window.addEventListener("keydown", (event) => {
-//   // console.log(event);
-//   if (event.code === "Escape") {
-//     console.log("Escape");
-//   }
+// Currying
 
-//   if (event.altKey && event.key === "Enter") {
-//     console.log("Combination!");
-//   }
-// });
-
-// V
-
-// const form = document.querySelector("form");
-
-// form.addEventListener("submit", (event) => {
-//   event.preventDefault();
-
-//   const data = {
-//     name: event.target.elements.name.value,
-//     email: event.target.elements.email.value,
+// function add(a) {
+//   return function (b) {
+//     return a + b;
 //   };
+// }
 
-//   console.log(data);
-// });
+// // const e = add(10);
 
-// VI
+// // console.log(e);
 
-// const search = document.querySelector(".search");
+// // console.log(e(30));
 
-// search.addEventListener("input", (e) => {
-//   console.log(e.target.value);
-// });
+// console.log(add(10)(30));
 
-// search.addEventListener("focus", (e) => {
-//   console.log("Focused!");
-// });
-
-// search.addEventListener("blur", (e) => {
-//   console.log("Focused lost!");
-// });
-
-// search.addEventListener("change", (e) => {
-//   console.log("Value changed!");
-// });
-
-// VII;
-
-// const btnList = document.querySelector(".btn-list");
-
-// btnList.addEventListener("click", (e) => {
-//   // console.log(e.currentTarget);
-//   if (e.target.nodeName === "BUTTON") {
-//     console.log(e.target.textContent);
+// function countDown(n) {
+//   if (n === 0) {
+//     return;
 //   }
-//   // console.log("Click!");
+
+//   console.log(n);
+
+//   countDown(n - 1);
+// }
+
+// countDown(5);
+
+// const user = {
+//   firstName: "Андрій",
+//   lastName: "Шевченко",
+//   online: true,
+
+//   // Гетер
+//   get status() {
+//     return this.online ? "Online" : "Offline";
+//   },
+
+//   // Сетер
+//   set status(value) {
+//     if (typeof value !== "boolean") {
+//       console.log("Value should be boolean");
+//       return;
+//     }
+
+//     this.online = value;
+//   },
+// };
+
+// console.log(user.status);
+// user.status = false;
+// console.log(user.status);
+
+// const user = {
+//   name: "Ann",
+//   age: 25,
+//   id: 1,
+// };
+
+// console.log(Object.getOwnPropertyDescriptor(user, "id"));
+
+// configurable: true;
+// enumerable: true;
+// value: 1;
+// writable: true;
+
+// user.id = 100;
+
+// delete user.id;
+
+// for (key in user) {
+//   console.log(key);
+// }
+
+// console.log(user);
+
+// Object.defineProperty(user, "id", {
+//   configurable: false,
+//   enumerable: false,
+//   writable: false,
 // });
 
-// VIII
+// user.id = 100;
 
-const inputForm = document.querySelector(".input-form");
+// delete user.id;
 
-inputForm.addEventListener("input", (e) => {
-  // console.log(e.currentTarget.elements.name.value);
-  // console.log(e.currentTarget.elements.email.value);
-  const data = {
-    name: e.currentTarget.elements.name.value,
-    email: e.currentTarget.elements.email.value,
-  };
+// console.log(user);
 
-  console.log(data);
-});
+// for (key in user) {
+//   console.log(key);
+// }
+
+// console.log(Object.keys(user));
+
+// const a = [1, 2, 2, 3, 1, 5, 4, 4, 4];
+
+// console.log(a.filter((item, index, array) => index === array.indexOf(item)));
+
+// const set = new Set(a);
+
+// console.log(set);
+
+// console.log(set.size);
+// console.log(set.has(50));
+
+// set.add(1);
+
+// console.log(Array.from(set));
+
+// const map = new Map();
+
+// console.log(map);
+
+// const item = { a: 5 };
+
+// map.set(item, 10);
+// map.set({ b: 20 }, "name");
+// map.set(5, "age");
+
+// console.log(map.has(item));
+
+// console.log(map);
+
+// const select = document.querySelector("select");
+
+// select.addEventListener("change", (e) => {
+//   const value = e.target.value;
+//   localStorage.setItem("theme", value);
+//   if (value === "dark") {
+//     document.body.style.backgroundColor = "grey";
+//   } else {
+//     document.body.style.backgroundColor = "white";
+//   }
+// });
+
+// const theme = localStorage.getItem("theme");
+
+// if (theme === "dark") {
+//   document.body.style.backgroundColor = "grey";
+// } else {
+//   document.body.style.backgroundColor = "white";
+// }

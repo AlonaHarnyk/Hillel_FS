@@ -1,114 +1,86 @@
-// I
+const fetchBtn = document.querySelector(".fetch");
+const list = document.querySelector(".list");
+const loader = document.querySelector(".loader");
+const addBtn = document.querySelector(".add");
+const formWrapper = document.querySelector(".form-wrapper");
 
-// const clickBtn = document.querySelector(".click");
+loader.style.display = "none";
+addBtn.style.display = "none";
 
-// console.log(clickBtn);
+const BASE_URL = "https://6240d2109b450ae274385b44.mockapi.io/api";
 
-// clickBtn.addEventListener("click", () => {
-//   console.log("Click!!!");
-// });
+fetchBtn.addEventListener("click", getUsers);
 
-// II
+function getUsers() {
+  list.innerHTML = "";
+  loader.style.display = "block";
+  fetch(`${BASE_URL}/users`)
+    .then((response) => response.json())
+    .then((data) => {
+      const markup = data
+        .map(
+          ({ name, email, id }) =>
+            `<li id=${id}><p>Name: ${name}</p><p>Email: ${email}</p><button class='delete'>Delete</button></li>`,
+        )
+        .join("");
+      //   list.innerHTML = "";
+      //   list.insertAdjacentHTML("afterbegin", markup);
+      list.innerHTML = markup;
+      const deleteBtns = list.querySelectorAll(".delete");
+      deleteBtns.forEach((btn) => btn.addEventListener("click", deleteUser));
+      fetchBtn.style.display = "none";
+      addBtn.style.display = "inline";
+    })
+    .catch((error) => console.log(error))
+    .finally(() => {
+      loader.style.display = "none";
+    });
+}
 
-// const buttons = document.querySelectorAll(".list button");
-
-// buttons.forEach((button) => {
-//   button.addEventListener("click", (event) => {
-//     console.log(event.target.textContent);
-//   });
-// });
-
-// III
-
-// const btn = document.querySelector(".one-time");
-
-// const handler = () => {
-//   console.log("One time!");
-// };
-
-// btn.addEventListener("click", handler);
-
-// setTimeout(() => {
-//   btn.removeEventListener("click", handler);
-// }, 5000);!
-
-// IV
-
-// keydown
-// keyup
-
-// code
-// key (depends on selected language)
-
-// window.addEventListener("keydown", (event) => {
-//   // console.log(event);
-//   if (event.code === "Escape") {
-//     console.log("Escape");
-//   }
-
-//   if (event.altKey && event.key === "Enter") {
-//     console.log("Combination!");
-//   }
-// });
-
-// V
-
-// const form = document.querySelector("form");
-
-// form.addEventListener("submit", (event) => {
-//   event.preventDefault();
-
-//   const data = {
-//     name: event.target.elements.name.value,
-//     email: event.target.elements.email.value,
-//   };
-
-//   console.log(data);
-// });
-
-// VI
-
-// const search = document.querySelector(".search");
-
-// search.addEventListener("input", (e) => {
-//   console.log(e.target.value);
-// });
-
-// search.addEventListener("focus", (e) => {
-//   console.log("Focused!");
-// });
-
-// search.addEventListener("blur", (e) => {
-//   console.log("Focused lost!");
-// });
-
-// search.addEventListener("change", (e) => {
-//   console.log("Value changed!");
-// });
-
-// VII;
-
-// const btnList = document.querySelector(".btn-list");
-
-// btnList.addEventListener("click", (e) => {
-//   // console.log(e.currentTarget);
-//   if (e.target.nodeName === "BUTTON") {
-//     console.log(e.target.textContent);
-//   }
-//   // console.log("Click!");
-// });
-
-// VIII
-
-const inputForm = document.querySelector(".input-form");
-
-inputForm.addEventListener("input", (e) => {
-  // console.log(e.currentTarget.elements.name.value);
-  // console.log(e.currentTarget.elements.email.value);
-  const data = {
-    name: e.currentTarget.elements.name.value,
-    email: e.currentTarget.elements.email.value,
+function deleteUser(e) {
+  const id = e.target.parentNode.id;
+  const options = {
+    method: "DELETE",
   };
+  e.target.textContent = "Deleting";
+  fetch(`${BASE_URL}/users/${id}`, options)
+    .then(() => getUsers())
+    .catch((error) => console.log(error));
+}
 
-  console.log(data);
-});
+addBtn.addEventListener("click", addUser);
+
+function createFormMarkup() {
+  return `<form><label>Name: <input type='text' name='name'/></label>
+  <label>Email: <input type='email' name='email'/></label> <button class='save'>Save</button>
+    </form>`;
+}
+
+function addUser() {
+  formWrapper.innerHTML = createFormMarkup();
+  const form = document.querySelector("form");
+  const savBtn = document.querySelector(".save");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const userData = {
+      name: e.target.elements.name.value,
+      email: e.target.elements.email.value,
+    };
+
+    const options = {
+      method: "POST",
+      body: JSON.stringify(userData),
+      headers: {
+        "Content-Type": "application/json; charset = UTF-8",
+      },
+    };
+
+    savBtn.textContent = "Saving...";
+    fetch(`${BASE_URL}/users`, options)
+      .then(() => {
+        formWrapper.innerHTML = "";
+        getUsers();
+      })
+      .catch((error) => console.log(error));
+  });
+}

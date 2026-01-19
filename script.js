@@ -1,114 +1,190 @@
-// I
+// Задача 1: Рядок — число (test)
+// ^\d+$
 
-// const clickBtn = document.querySelector(".click");
+// ^ — початок рядка
 
-// console.log(clickBtn);
+// \d+ — одна або більше цифр
 
-// clickBtn.addEventListener("click", () => {
-//   console.log("Click!!!");
-// });
+// $ — кінець рядка
 
-// II
+// console.log(/^\d+$/.test("123")); // true
+// console.log(/^\d+$/.test("12a")); // false
 
-// const buttons = document.querySelectorAll(".list button");
+// Задача 2: Одне слово без пробілів (test)
+// ^\w+$
 
-// buttons.forEach((button) => {
-//   button.addEventListener("click", (event) => {
-//     console.log(event.target.textContent);
-//   });
-// });
+// ^ — початок
 
-// III
+// \w+ — букви, цифри, _
 
-// const btn = document.querySelector(".one-time");
+// $ — кінець
 
-// const handler = () => {
-//   console.log("One time!");
-// };
+// console.log(/^\w+$/.test("hello")); // true
+// console.log(/^\w+$/.test("hello world")); // false
 
-// btn.addEventListener("click", handler);
+// Задача 3: Знайти всі числа (match)
+// \d+
+
+// \d+ — одна або більше цифр
+
+// console.log("У мене 3 яблука і 12 груш".match(/\d+/g));
+// // ["3", "12"]
+
+// Задача 4: Email (test)
+// ^\w+@\w+\.\w+$
+
+// ^ — початок
+
+// \w+ — імʼя користувача
+
+// @ — символ @
+
+// \w+ — домен
+
+// \. — крапка
+
+// \w+ — зона (.com, .ua)
+
+// $ — кінець
+
+// console.log(/^\w+@\w+\.\w+$/.test("test@gmail.com")); // true
+// console.log(/^\w+@\w+\.\w+$/.test("test@gmail"));    // false
+
+// Задача 5: Маскування цифр (replace)
+// \d
+
+// \d — кожна цифра
+
+// console.log("099-123-45-67".replace("/d/g", "*"));
+// // "***-***-**-**"
+
+// Задача 6: Знайти позицію слова (search)
+// world
+
+// шукає "world"
+
+// console.log("Hello world".search(/world/)); // 6
+// console.log("Hello World".search(/world/i)); // 6, i = регістронезалежно
+
+// Задача 7: Розбиття рядка (split)
+// [,; ]
+
+// [ ] — один із символів
+
+// розбиває рядок за комою, крапкою з комою або пробілом
+
+// console.log("one,two;three four".split(/[,; ]/));
+// // ["one","two","three","four"]
+
+// Задача 8: Перша цифра через exec
+// \d+
+
+// exec повертає перший збіг
+
+// console.log(/\d+/.exec("У мене 12 яблук і 3 груші"));
+// [
+//   "12",           // [0] — сам текст, який збігся
+//   index: 7,       // позиція першого символу збігу у рядку
+//   input: "У мене 12 яблук і 3 груші",
+//   groups: undefined
+// ]
+
+// const result = /\d+/.exec("У мене 12 яблук і 3 груші");
+
+// if (result) {
+//   const number = Number(result[0]); // "12" -> 12
+//   console.log(number); // 12
+// }
+
+// Задача 9: Всі цифри через matchAll (групи)
+// /(\d+)/g
+
+// console.log([..."3 і 12".matchAll(/(\d+)/g)]);
+// // кожен обʼєкт містить групу
+
+// matchAll дозволяє працювати з усіма входженнями
+
+// Кожен матч matchAll повертає масив
+// Перший матч "12":
+// [
+//   "12",      // [0] повний матч
+//   "12",      // [1] перша група
+//   index: 7,
+//   input: "У мене 12 яблук і 3 груші",
+//   groups: undefined
+// ]
+
+// Другий матч "3":
+// [
+//   "3",       // [0] повний матч
+//   "3",       // [1] перша група
+//   index: 17,
+//   input: "У мене 12 яблук і 3 груші",
+//   groups: undefined
+// ]
+
+// const numbers = [..."У мене 12 яблук і 3 груші".matchAll(/(\d+)/g)].map(m => Number(m[1]));
+// console.log(numbers); // [12, 3]
+
+// console.log("start");
+
+// const timerId = setTimeout(
+//   (a, b) => {
+//     console.log(a);
+//     console.log(b);
+//   },
+//   0,
+//   1,
+//   2
+// );
+
+// clearTimeout(timerId);
+
+// console.log("test");
+
+// const timerId = setInterval(
+//   (a, b) => {
+//     console.log(a);
+//     console.log(b);
+//   },
+//   1000,
+//   1,
+//   2
+// );
 
 // setTimeout(() => {
-//   btn.removeEventListener("click", handler);
-// }, 5000);!
+//   clearInterval(timerId);
+// }, 10000);
 
-// IV
+// const isSuccess = true;
 
-// keydown
-// keyup
-
-// code
-// key (depends on selected language)
-
-// window.addEventListener("keydown", (event) => {
-//   // console.log(event);
-//   if (event.code === "Escape") {
-//     console.log("Escape");
-//   }
-
-//   if (event.altKey && event.key === "Enter") {
-//     console.log("Combination!");
-//   }
+// const promise = new Promise((resolve, reject) => {
+//   setTimeout(() => {
+//     if (isSuccess) {
+//       resolve({ name: "Olha", age: 45, id: 1 });
+//     } else {
+//       reject("Error!");
+//     }
+//   }, 500);
 // });
 
-// V
+// console.log(promise);
 
-// const form = document.querySelector("form");
+// promise.then(
+//   (data) => console.log(data),
+//   (error) => console.log(error)
+// );
 
-// form.addEventListener("submit", (event) => {
-//   event.preventDefault();
+// promise
+//   .then((data) => data.id)
+//   .then((id) => console.log(id))
+//   .catch((error) => console.log(error))
+//   .finally(() => console.log("The end!"));
 
-//   const data = {
-//     name: event.target.elements.name.value,
-//     email: event.target.elements.email.value,
-//   };
+localStorage.setItem("data", JSON.stringify([{ a: 1 }, { a: 2 }]));
 
-//   console.log(data);
-// });
+const data = localStorage.getItem("data");
 
-// VI
+const parsedData = JSON.parse(data);
 
-// const search = document.querySelector(".search");
-
-// search.addEventListener("input", (e) => {
-//   console.log(e.target.value);
-// });
-
-// search.addEventListener("focus", (e) => {
-//   console.log("Focused!");
-// });
-
-// search.addEventListener("blur", (e) => {
-//   console.log("Focused lost!");
-// });
-
-// search.addEventListener("change", (e) => {
-//   console.log("Value changed!");
-// });
-
-// VII;
-
-// const btnList = document.querySelector(".btn-list");
-
-// btnList.addEventListener("click", (e) => {
-//   // console.log(e.currentTarget);
-//   if (e.target.nodeName === "BUTTON") {
-//     console.log(e.target.textContent);
-//   }
-//   // console.log("Click!");
-// });
-
-// VIII
-
-const inputForm = document.querySelector(".input-form");
-
-inputForm.addEventListener("input", (e) => {
-  // console.log(e.currentTarget.elements.name.value);
-  // console.log(e.currentTarget.elements.email.value);
-  const data = {
-    name: e.currentTarget.elements.name.value,
-    email: e.currentTarget.elements.email.value,
-  };
-
-  console.log(data);
-});
+console.log(parsedData.map((i) => console.log(i)));

@@ -11,44 +11,47 @@ const BASE_URL = "https://6240d2109b450ae274385b44.mockapi.io/api";
 
 fetchBtn.addEventListener("click", getUsers);
 
-function getUsers() {
-  list.innerHTML = "";
-  loader.style.display = "block";
-  fetch(`${BASE_URL}/users`)
-    .then((response) => response.json())
-    .then((data) => {
-      const markup = data
-        .map(
-          ({ name, email, id }) =>
-            `<li id=${id}><p>Name: <span class='name'>${name}</span></p><p>Email: <span class='email'>${email}</span></p>
-          <button class='delete'>Delete</button><button class='edit'>Edit</button><div class="edit-form-wrapper"></div></li>`,
-        )
-        .join("");
-      //   list.innerHTML = "";
-      //   list.insertAdjacentHTML("afterbegin", markup);
-      list.innerHTML = markup;
-      const deleteBtns = list.querySelectorAll(".delete");
-      deleteBtns.forEach((btn) => btn.addEventListener("click", deleteUser));
-      fetchBtn.style.display = "none";
-      addBtn.style.display = "inline";
-      const editBtns = list.querySelectorAll(".edit");
-      editBtns.forEach((btn) => btn.addEventListener("click", editUser));
-    })
-    .catch((error) => console.log(error))
-    .finally(() => {
-      loader.style.display = "none";
-    });
+async function getUsers() {
+  try {
+    list.innerHTML = "";
+    loader.style.display = "block";
+    const response = await fetch(`${BASE_URL}/users`);
+    const data = await response.json();
+    const markup = data
+      .map(
+        ({ name, email, id }) =>
+          `<li id=${id}><p>Name: <span class='name'>${name}</span></p><p>Email: <span class='email'>${email}</span></p>
+        <button class='delete'>Delete</button><button class='edit'>Edit</button><div class="edit-form-wrapper"></div></li>`,
+      )
+      .join("");
+    //   list.innerHTML = "";
+    //   list.insertAdjacentHTML("afterbegin", markup);
+    list.innerHTML = markup;
+    const deleteBtns = list.querySelectorAll(".delete");
+    deleteBtns.forEach((btn) => btn.addEventListener("click", deleteUser));
+    fetchBtn.style.display = "none";
+    addBtn.style.display = "inline";
+    const editBtns = list.querySelectorAll(".edit");
+    editBtns.forEach((btn) => btn.addEventListener("click", editUser));
+  } catch (error) {
+    console.log(error);
+  } finally {
+    loader.style.display = "none";
+  }
 }
 
-function deleteUser(e) {
-  const id = e.target.parentNode.id;
-  const options = {
-    method: "DELETE",
-  };
-  e.target.textContent = "Deleting";
-  fetch(`${BASE_URL}/users/${id}`, options)
-    .then(() => getUsers())
-    .catch((error) => console.log(error));
+async function deleteUser(e) {
+  try {
+    const id = e.target.parentNode.id;
+    const options = {
+      method: "DELETE",
+    };
+    e.target.textContent = "Deleting";
+    await fetch(`${BASE_URL}/users/${id}`, options);
+    getUsers();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 addBtn.addEventListener("click", addUser);
@@ -63,7 +66,7 @@ function addUser() {
   formWrapper.innerHTML = createFormMarkup();
   const form = document.querySelector("form");
   const savBtn = document.querySelector(".save");
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const userData = {
       name: e.target.elements.name.value,
@@ -78,13 +81,14 @@ function addUser() {
       },
     };
 
-    savBtn.textContent = "Saving...";
-    fetch(`${BASE_URL}/users`, options)
-      .then(() => {
-        formWrapper.innerHTML = "";
-        getUsers();
-      })
-      .catch((error) => console.log(error));
+    try {
+      savBtn.textContent = "Saving...";
+      await fetch(`${BASE_URL}/users`, options);
+      formWrapper.innerHTML = "";
+      getUsers();
+    } catch (error) {
+      console.log(error);
+    }
   });
 }
 
@@ -97,7 +101,7 @@ function editUser(e) {
   editFormWrapper.innerHTML = createFormMarkup(name, email);
   const form = li.querySelector("form");
   const editBtn = e.target;
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const userData = {
       name: e.target.elements.name.value,
@@ -110,9 +114,12 @@ function editUser(e) {
         "Content-Type": "application/json; charset = UTF-8",
       },
     };
-    editBtn.textContent = "Editing";
-    fetch(`${BASE_URL}/users/${id}`, options)
-      .then(() => getUsers())
-      .catch(() => console.log(error));
+    try {
+      editBtn.textContent = "Editing";
+      await fetch(`${BASE_URL}/users/${id}`, options);
+      getUsers();
+    } catch (error) {
+      console.log(error);
+    }
   });
 }

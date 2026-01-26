@@ -1,4 +1,4 @@
-// axios.baseUrl = "https://6240d2109b450ae274385b44.mockapi.io/api";
+import axios from "https://cdn.jsdelivr.net/npm/axios@1.6.0/+esm";
 
 const api = axios.create({
   baseURL: "https://6240d2109b450ae274385b44.mockapi.io/api",
@@ -9,19 +9,29 @@ const list = document.querySelector(".list");
 const loader = document.querySelector(".loader");
 const addBtn = document.querySelector(".add");
 const formWrapper = document.querySelector(".form-wrapper");
+const loreMoreBtn = document.querySelector(".load-more");
 
 loader.style.display = "none";
 addBtn.style.display = "none";
+loreMoreBtn.style.display = "none";
 
 const BASE_URL = "https://6240d2109b450ae274385b44.mockapi.io/api";
 
 fetchBtn.addEventListener("click", getUsers);
 
+let currentPage = 1;
+
 async function getUsers() {
   try {
-    list.innerHTML = "";
+    loreMoreBtn.style.display = "none";
     loader.style.display = "block";
-    const { data } = await api(`${BASE_URL}/users`);
+    // const { data } = await api(`${BASE_URL}/users?page=1&limit=10`);
+    const { data } = await api(`${BASE_URL}/users`, {
+      params: {
+        page: currentPage,
+        limit: 20,
+      },
+    });
     const markup = data
       .map(
         ({ name, email, id }) =>
@@ -29,13 +39,17 @@ async function getUsers() {
         <button class='delete'>Delete</button><button class='edit'>Edit</button><div class="edit-form-wrapper"></div></li>`,
       )
       .join("");
-    //   list.innerHTML = "";
-    //   list.insertAdjacentHTML("afterbegin", markup);
-    list.innerHTML = markup;
+    list.insertAdjacentHTML("beforeend", markup);
     const deleteBtns = list.querySelectorAll(".delete");
     deleteBtns.forEach((btn) => btn.addEventListener("click", deleteUser));
     fetchBtn.style.display = "none";
     addBtn.style.display = "inline";
+
+    if (data.length === 20) {
+      loreMoreBtn.style.display = "inline";
+    } else {
+      alert("The end of collection");
+    }
     const editBtns = list.querySelectorAll(".edit");
     editBtns.forEach((btn) => btn.addEventListener("click", editUser));
   } catch (error) {
@@ -50,6 +64,8 @@ async function deleteUser(e) {
     const id = e.target.parentNode.id;
     e.target.textContent = "Deleting";
     await api.delete(`${BASE_URL}/users/${id}`);
+    currentPage = 1;
+    list.innerHTML = "";
     getUsers();
   } catch (error) {
     console.log(error);
@@ -78,6 +94,8 @@ function addUser() {
       savBtn.textContent = "Saving...";
       await api.post(`${BASE_URL}/users`, userData);
       formWrapper.innerHTML = "";
+      currentPage = 1;
+      list.innerHTML = "";
       getUsers();
     } catch (error) {
       console.log(error);
@@ -103,9 +121,18 @@ function editUser(e) {
     try {
       editBtn.textContent = "Editing";
       await api.put(`${BASE_URL}/users/${id}`, userData);
+      currentPage = 1;
+      list.innerHTML = "";
       getUsers();
     } catch (error) {
       console.log(error);
     }
   });
+}
+
+loreMoreBtn.addEventListener("click", handleLoadMore);
+
+function handleLoadMore() {
+  currentPage += 1;
+  getUsers();
 }

@@ -1,0 +1,12 @@
+body {
+    font-family: sans-serif;
+}
+
+.title {
+    color: darkblue;
+    font-size: 32px;
+}
+
+.image {
+    display: block;
+}

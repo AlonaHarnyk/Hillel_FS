@@ -1,4 +1,24 @@
-import axios from "https://cdn.jsdelivr.net/npm/axios@1.6.0/+esm";
+import "./styles.css";
+
+// EXAMPLES
+
+// import imgSrc from "@/assets/image.png";
+
+// import { a } from "@/scripts/script.js";
+
+// console.log(a);
+
+// const app = document.createElement("div");
+// app.textContent = "Webpack працює 🚀";
+// app.className = "title";
+// document.body.append(app);
+
+// const img = document.createElement("img");
+// img.src = imgSrc;
+// img.className = "image";
+// app.appendChild(img);
+
+import axios from "axios";
 
 const api = axios.create({
   baseURL: "https://6240d2109b450ae274385b44.mockapi.io/api",
@@ -10,16 +30,22 @@ const loader = document.querySelector(".loader");
 const addBtn = document.querySelector(".add");
 const formWrapper = document.querySelector(".form-wrapper");
 const loreMoreBtn = document.querySelector(".load-more");
+const searchForm = document.querySelector(".search-form");
+const sortSelect = document.querySelector(".sort");
 
 loader.style.display = "none";
 addBtn.style.display = "none";
 loreMoreBtn.style.display = "none";
+searchForm.style.display = "none";
+sortSelect.style.display = "none";
 
 const BASE_URL = "https://6240d2109b450ae274385b44.mockapi.io/api";
 
 fetchBtn.addEventListener("click", getUsers);
 
 let currentPage = 1;
+let search = "";
+let sortOrder = "asc";
 
 async function getUsers() {
   try {
@@ -29,7 +55,10 @@ async function getUsers() {
     const { data } = await api(`${BASE_URL}/users`, {
       params: {
         page: currentPage,
-        limit: 20,
+        limit: 5,
+        search,
+        sortBy: "name",
+        order: sortOrder,
       },
     });
     const markup = data
@@ -39,15 +68,20 @@ async function getUsers() {
         <button class='delete'>Delete</button><button class='edit'>Edit</button><div class="edit-form-wrapper"></div></li>`,
       )
       .join("");
+    if (currentPage === 1) {
+      list.innerHTML = "";
+    }
     list.insertAdjacentHTML("beforeend", markup);
     const deleteBtns = list.querySelectorAll(".delete");
     deleteBtns.forEach((btn) => btn.addEventListener("click", deleteUser));
     fetchBtn.style.display = "none";
     addBtn.style.display = "inline";
+    searchForm.style.display = "block";
+    sortSelect.style.display = "block";
 
-    if (data.length === 20) {
+    if (data.length === 5) {
       loreMoreBtn.style.display = "inline";
-    } else {
+    } else if (data.length < 5 && currentPage !== 1) {
       alert("The end of collection");
     }
     const editBtns = list.querySelectorAll(".edit");
@@ -134,5 +168,25 @@ loreMoreBtn.addEventListener("click", handleLoadMore);
 
 function handleLoadMore() {
   currentPage += 1;
+  getUsers();
+}
+
+searchForm.addEventListener("submit", searchHandler);
+
+function searchHandler(e) {
+  e.preventDefault();
+  const form = e.target;
+  search = form.elements.search.value.trim();
+  currentPage = 1;
+  getUsers();
+  form.reset();
+}
+
+sortSelect.addEventListener("change", changeSortOrder);
+
+function changeSortOrder(event) {
+  sortOrder = event.target.value;
+  list.innerHTML = "";
+  currentPage = 1;
   getUsers();
 }

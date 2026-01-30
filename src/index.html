@@ -1,27 +1,23 @@
 <!doctype html>
-<html lang="en">
+<html lang="uk">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="./css/styles.min.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/modern-normalize@3.0.1/modern-normalize.min.css"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap"
-      rel="stylesheet"
-    />
+    <title>Webpack demo</title>
   </head>
   <body>
-    <main>
-      <!-- -->
-      //= html/root.html
-      <!-- -->
-    </main>
-    <script type="module" src="js/scripts.min.js"></script>
+    <button type="button" class="fetch">Show users</button>
+    <h1 class="loader">LOADING...</h1>
+    <button type="button" class="add">Add user</button>
+    <div class="form-wrapper"></div>
+    <select class="sort">
+      <option value="asc">From A to Z</option>
+      <option value="desc">From Z to A</option>
+    </select>
+    <form class="search-form">
+      <input type="text" name="search" />
+      <button>Search</button>
+    </form>
+    <ul class="list"></ul>
+    <button type="button" class="load-more">Load more</button>
   </body>
 </html>

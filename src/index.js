@@ -39,8 +39,6 @@ loreMoreBtn.style.display = "none";
 searchForm.style.display = "none";
 sortSelect.style.display = "none";
 
-const BASE_URL = "https://6240d2109b450ae274385b44.mockapi.io/api";
-
 fetchBtn.addEventListener("click", getUsers);
 
 let currentPage = 1;
@@ -51,8 +49,8 @@ async function getUsers() {
   try {
     loreMoreBtn.style.display = "none";
     loader.style.display = "block";
-    // const { data } = await api(`${BASE_URL}/users?page=1&limit=10`);
-    const { data } = await api(`${BASE_URL}/users`, {
+    // const { data } = await api('/users?page=1&limit=10');
+    const { data } = await api("/users", {
       params: {
         page: currentPage,
         limit: 5,
@@ -97,7 +95,7 @@ async function deleteUser(e) {
   try {
     const id = e.target.parentNode.id;
     e.target.textContent = "Deleting";
-    await api.delete(`${BASE_URL}/users/${id}`);
+    await api.delete(`/users/${id}`);
     currentPage = 1;
     list.innerHTML = "";
     getUsers();
@@ -126,7 +124,7 @@ function addUser() {
     };
     try {
       savBtn.textContent = "Saving...";
-      await api.post(`${BASE_URL}/users`, userData);
+      await api.post("/users", userData);
       formWrapper.innerHTML = "";
       currentPage = 1;
       list.innerHTML = "";
@@ -154,7 +152,7 @@ function editUser(e) {
     };
     try {
       editBtn.textContent = "Editing";
-      await api.put(`${BASE_URL}/users/${id}`, userData);
+      await api.put(`/users/${id}`, userData);
       currentPage = 1;
       list.innerHTML = "";
       getUsers();

@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base=/Hillel_FS/",
-    "preview": "vite preview"
+    "build": "vite build --base=/Hillel_FS/"
   },
   "devDependencies": {
     "glob": "^11.0.0",
@@ -16,6 +15,8 @@
   },
   "license": "ISC",
   "dependencies": {
+    "basiclightbox": "^5.0.4",
+    "simplelightbox": "^2.14.3",
     "vite-plugin-full-reload": "^1.2.0",
     "vite-plugin-html-inject": "^1.1.2"
   }

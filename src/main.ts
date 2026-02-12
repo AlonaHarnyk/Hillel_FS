@@ -1,151 +1,259 @@
-// //Primitive types
+import axios from "axios";
 
-// let a = "test";
-// let b = 5;
-// let c = true;
+// I. Enums
 
-// let d: string;
+// type PromiseStatus = 'pending' | 'fulfilled' | 'rejected'
 
-// a = "test!";
-// b = 10;
-// c = false;
-// d = "true";
+// let status: PromiseStatus;
 
-// let e: null = null;
-// let f: undefined = undefined;
+// status = 'pending'
 
-// console.log(e, f);
-
-// let g: unknown;
-
-// if (typeof g === "string") {
-//   g.toLowerCase();
+// enum PromiseStatus {
+//   Pending = "pending",
+//   FulFilled = "fulfilled",
+//   Rejected = "rejected",
 // }
 
-// Objects
+// let status: PromiseStatus;
 
-// interface User {
+// status = PromiseStatus.Pending;
+
+// console.log(status);
+
+// type StatusCode = 200 | 201 | 400 | 404 | 500;
+
+// enum StatusCode {
+//   Success = 200,
+//   Created = 201,
+//   BadRequest = 400,
+//   NotFound = 404,
+//   ServerError = 500,
+// }
+
+// let code: StatusCode;
+
+// code = StatusCode.Created;
+
+// interface Request {
+//   status: StatusCode;
+//   message: string;
+// }
+
+// console.log(StatusCode[200]); // зворотнє відображення
+
+// II. Generics
+
+// function logger<T, A>(value1: T, value2: A): T {
+//   console.log(value1);
+//   console.log(value2);
+//   return value1;
+// }
+
+// logger<string, number>("test", 5);
+// logger<number, string>(5, "a");
+// logger<number[], boolean>([1, 2], true);
+
+// const getLastElement = <T>(array: T[]): T => {
+//   console.log(array[array.length - 1]);
+//   return array[array.length - 1];
+// };
+
+// getLastElement<number>([1, 2]);
+// getLastElement<string>(["a", "c", "d"]);
+// getLastElement<string | number>([1, "test"]);
+
+// function createHelloMessage<T extends { name: string }>(user: T): void {
+//   console.log(`Hello, ${user.name}`);
+// }
+
+// interface User1 {
 //   name: string;
 //   age: number;
-//   readonly id: string;
-//   hasJob: boolean;
-//   email?: string;
 // }
 
-// const user: User = {
-//   name: "Olha",
-//   age: 25,
-//   id: "123",
-//   hasJob: true,
-// };
-
-// user.email = "test@ukr.net";
-
-// user.age = 30;
-// user.id = "234"; // error;
-
-// Arrays
-
-// const letters: string[] = ["a", "b", "c"];
-// const numbers: number[] = [1, 2, 3];
-
-// const letters1: Array<string> = ["a", "b", "c"];
-// const numbers2: Array<number> = [1, 2, 3];
-
-// const users: User[] = [
-//   {
-//     name: "Olha",
-//     age: 25,
-//     id: "123",
-//     hasJob: true,
-//   },
-//   {
-//     name: "Ann",
-//     age: 45,
-//     id: "456",
-//     hasJob: false,
-//   },
-// ];
-
-// Union types
-
-// type PersonValue = null | User;
-
-// let person: PersonValue = null;
-
-// person = {
-//   name: "Ann",
-//   age: 45,
-//   id: "456",
-//   hasJob: false,
-// };
-
-// type ArrayValue = string | number | boolean;
-
-// const array: ArrayValue[] = ["test", true, 20, 1000, true];
-
-// type OrderStatus = "pending" | "delivered" | "closed";
-
-// interface Order {
-//   item: string;
-//   quantity: number;
-//   status: OrderStatus;
+// interface User2 {
+//   name: string;
+//   email: string;
 // }
 
-// const order: Order = {
-//   item: "book",
-//   quantity: 1,
-//   status: "pending", // 'delivered', 'closed'
-// };
+// createHelloMessage<User1>({ name: "Olha", age: 47 });
+// createHelloMessage<User2>({ name: "Peter", email: "peter@gmail.com" });
 
-// Functions
+// function getLength<T extends { length: number }>(value: T): number {
+//   return value.length;
+// }
 
-// const add = (a: number, b: number): number => a + b;
+// getLength<string>("test");
+// getLength<number[]>([1, 2, 3]);
 
-// const sum = add(5, 10);
+// function saveToLocalStorage<T>(key: string, value: T): void {
+//   localStorage.setItem(key, JSON.stringify(value));
+// }
 
-// add(5, 100);
+// saveToLocalStorage<string>("userName", "Jacob");
+// saveToLocalStorage<number[]>("array", [1, 2, 3]);
 
-// const logMessage = (firstName: string, lastName?: string): void => {
-//   if (lastName) {
-//     console.log(`Hello, ${firstName} ${lastName}`);
-//     return;
+// function loadFromLocalStorage<T>(key: string): T | null {
+//   const value = localStorage.getItem(key);
+//   if (value !== null) {
+//     return JSON.parse(value);
 //   }
-//   console.log(`Hello, ${firstName}`);
+//   return null;
+// }
+
+// loadFromLocalStorage<string>("userName");
+// loadFromLocalStorage<number[]>("array");
+
+// interface Todo {
+//   id: number;
+//   text: string;
+//   imageUrl?: string;
+// }
+
+// interface HttpResponse<T> {
+//   status: number;
+//   message: string;
+//   data: T;
+// }
+
+// const todosResponse: HttpResponse<Todo[]> = {
+//   status: 200,
+//   message: "Success!",
+//   data: [
+//     { id: 1, text: "a" },
+//     { id: 2, text: "b" },
+//   ],
 // };
 
-// logMessage("John");
-// logMessage("John", 'Doe');
+// const todoResponse: HttpResponse<Todo> = {
+//   status: 200,
+//   message: "Success!",
+//   data: { id: 1, text: "a" },
+// };
+
+// const todoUrlResponse: HttpResponse<string> = {
+//   status: 200,
+//   message: "Success!",
+//   data: "http//:image",
+// };
+
+// III. Promises
+
+// const getData = (): Promise<string> => {
+//   return new Promise((resolve) => {
+//     setTimeout(() => resolve("Hello, world!"), 300);
+//   });
+// };
+
+// getData().then((result) => console.log(result.toUpperCase()));
 
 // interface User {
+//   id: number;
 //   name: string;
-//   greet: (message: string) => void;
 // }
 
-// const user: User = {
-//   name: "Peter",
-//   greet(message) {
-//     console.log(`${message}, ${this.name}`);
-//   },
+// const getUser = (): Promise<User> => {
+//   return new Promise((resolve) => {
+//     setTimeout(() => resolve({ id: 1, name: "John" }), 300);
+//   });
 // };
 
-// user.greet("Hi");
+// getUser().then((user) => console.log(user.name));
 
-interface Player {
-  name: string;
-  isOnline: boolean;
-}
+// IV. Axios requests
 
-const players: Player[] = [
-  { name: "John", isOnline: true },
-  { name: "Ann", isOnline: true },
-  { name: "Oleh", isOnline: false },
-  { name: "Ella", isOnline: true },
-];
+// const getTodos = async (): Promise<Todo[]> => {
+//   const response = await axios.get<Todo[]>("http://mock.url/todos");
+//   return response.data;
+// };
 
-const getActivePlayers = (players: Player[]): Player[] =>
-  players.filter(({ isOnline }) => isOnline);
+// getTodos().then((data) => data.map((item) => item.text));
 
-const res = getActivePlayers(players);
+// interface TodoData {
+//   text: string;
+// }
 
-console.log(res);
+// const createTodo = async (body: TodoData): Promise<Todo> => {
+//   const response = await axios.post<Todo>("http://mock.url/todos", body);
+//   return response.data;
+// };
+
+// V. CLASSES
+
+// 1
+
+// class User1 {
+//   name: string;
+//   age: number;
+
+//   constructor(name: string, age: number) {
+//     this.name = name;
+//     this.age = age;
+//   }
+// }
+
+// 2
+
+// class User2 {
+//   name: string;
+
+//   constructor(name: string) {
+//     this.name = name;
+//   }
+
+//   sayHello(): string {
+//     return `Hi, I’m ${this.name}`;
+//   }
+// }
+
+// 3
+// public — доступні всюди (за замовчуванням)
+
+// private — доступні тільки всередині класу
+
+// protected — доступні в класі та його нащадках
+
+// class Account {
+//   private balance: number = 0;
+
+//   protected deposit(amount: number): void {
+//     this.balance += amount;
+//   }
+// }
+
+// 4
+// interface Animal1 {
+//   name: string;
+//   speak(): void;
+// }
+
+// class Dog1 implements Animal1 {
+//   name: string = "Buddy";
+
+//   speak(): void {
+//     console.log("Woof!");
+//   }
+// }
+
+// 5
+
+// abstract class Animal2 {
+//   abstract readonly animalName: string; // без значення
+//   abstract makeSound(): void; // абстрактний метод (без реалізації)
+
+//   move(): void {
+//     console.log("I am moving");
+//   }
+// }
+
+// class Dog2 extends Animal2 {
+//   animalName: string = "Dog";
+//   makeSound(): void {
+//     console.log("Woof!");
+//   }
+// }
+
+// const d = new Dog2();
+// d.animalName; // "Dog"
+// d.makeSound(); // "Woof!"
+// d.move(); // "I am moving"

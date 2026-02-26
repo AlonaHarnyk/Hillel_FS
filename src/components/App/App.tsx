@@ -1,48 +1,105 @@
-import { data } from "../../data/data";
-import type { Task } from "../../types/types";
-import { AddTask } from "../AddTask/AddTask";
-// import { CounterBtn } from "../CounterBtn/CounterBtn";
-// import { CounterValue } from "../CounterValue/CounterValue";
-import { TaskList } from "../TaskList/TaskList";
+import { useState, useEffect } from "react";
+// import { getPosts, type Post } from "../../services/postsApi";
+import { Timer } from "../Timer/Timer";
 
-import { useState } from "react";
+// export const App = () => {
+//   const [posts, setPosts] = useState<Post[]>([]);
+//   const [isLoading, setIsLoading] = useState(false);
+//   const [isError, setIsError] = useState(false);
+//   const showPosts = async () => {
+//     try {
+//       setIsError(false);
+//       setIsLoading(true);
+//       const { posts } = await getPosts();
+//       setPosts(posts);
+//     } catch {
+//       setIsError(true);
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   };
+//   return (
+//     <>
+//       <h1>App</h1>
+//       <button onClick={showPosts}>Show posts</button>
+//       <ul>
+//         {posts.map((post) => (
+//           <li key={post.id}>
+//             <h3>{post.title}</h3>
+//             <p>{post.body}</p>
+//           </li>
+//         ))}
+//       </ul>
+//       {isLoading && <p>LOADING...</p>}
+//       {isError && <p>Opps! It's error!</p>}
+//     </>
+//   );
+// };
 
 export const App = () => {
-  // const [counter, setCounter] = useState(0);
-  const [tasks, setTasks] = useState<Task[]>(data);
-  const [isListVisible, setIsListVisible] = useState(false);
+  // const [posts, setPosts] = useState<Post[]>([]);
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [isError, setIsError] = useState(false);
+  // const [counter, setCounter] = useState(1);
+  const [isTimerVisible, setIsTimerVisible] = useState(() => {
+    const savedItem = localStorage.getItem("timer-state");
+    if (savedItem !== null) {
+      return JSON.parse(savedItem);
+    }
+    return false
+  });
 
-  // const handleClick = () => {
-  //   setCounter(counter + 1);
-  // };
+  // useEffect(() => {
+  //   console.log("hello");
+  //   // getPosts()
+  //   //   .then(({ posts }) => setPosts(posts))
+  //   //   .catch(() => setIsError(true))
+  //   //   .finally(() => setIsLoading(false));
+  //   const fetchdata = async () => {
+  //     try {
+  //       setIsError(false);
+  //       setIsLoading(true);
+  //       const { posts } = await getPosts();
+  //       setPosts(posts);
+  //     } catch {
+  //       setIsError(true);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+  //   fetchdata()
+  // }, []);
 
-  const deleteTask = (id: number) => {
-    // setTasks(tasks.filter((item) => id !== item.id));
-    setTasks((prevTasks) => prevTasks.filter((item) => id !== item.id));
-  };
+  // useEffect(() => {
+  //   console.log("Counter updated!");
 
-  const addTask = (newTask: Task) => {
-    setTasks([...tasks, newTask])
-  }
+  //   return () => {
+  //     console.log("updated");
+  //   };
+  // }, [counter]);
 
-  const changeVisibility = () => {
-    setIsListVisible(!isListVisible);
-  };
+  useEffect(() => {
+    localStorage.setItem("timer-state", JSON.stringify(isTimerVisible));
+  }, [isTimerVisible]);
 
   return (
     <>
-      {/* <CounterBtn handleClick={handleClick} />
-      <CounterBtn handleClick={handleClick} />
-      <CounterBtn handleClick={handleClick} />
-      <CounterValue counter={counter} /> */}
-      <button onClick={changeVisibility}>
-        {isListVisible ? "Hide" : "Show"} tasks
+      <p>App!</p>
+      {/* <button onClick={() => setCounter(counter + 1)}>Clicks: {counter}</button> */}
+      {/* <ul>
+        {posts.map((post) => (
+          <li key={post.id}>
+            <h3>{post.title}</h3>
+            <p>{post.body}</p>
+          </li>
+        ))}
+      </ul>
+      {isLoading && <p>LOADING...</p>}
+      {isError && <p>Opps! It's error!</p>} */}
+      <button onClick={() => setIsTimerVisible(!isTimerVisible)}>
+        {isTimerVisible ? "Hide" : "Show"} timer
       </button>
-      {isListVisible && (
-        <>
-          <TaskList tasks={tasks} onDelete={deleteTask} /> <AddTask onAdd={addTask} />
-        </>
-      )}
+      {isTimerVisible && <Timer />}
     </>
   );
 };

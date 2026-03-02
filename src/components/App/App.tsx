@@ -1,105 +1,79 @@
 import { useState, useEffect } from "react";
-// import { getPosts, type Post } from "../../services/postsApi";
-import { Timer } from "../Timer/Timer";
-
-// export const App = () => {
-//   const [posts, setPosts] = useState<Post[]>([]);
-//   const [isLoading, setIsLoading] = useState(false);
-//   const [isError, setIsError] = useState(false);
-//   const showPosts = async () => {
-//     try {
-//       setIsError(false);
-//       setIsLoading(true);
-//       const { posts } = await getPosts();
-//       setPosts(posts);
-//     } catch {
-//       setIsError(true);
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   };
-//   return (
-//     <>
-//       <h1>App</h1>
-//       <button onClick={showPosts}>Show posts</button>
-//       <ul>
-//         {posts.map((post) => (
-//           <li key={post.id}>
-//             <h3>{post.title}</h3>
-//             <p>{post.body}</p>
-//           </li>
-//         ))}
-//       </ul>
-//       {isLoading && <p>LOADING...</p>}
-//       {isError && <p>Opps! It's error!</p>}
-//     </>
-//   );
-// };
+import { getContacts } from "../../services/contactsApi";
+import type { Contact } from "../../types";
+import { ContactsList } from "../ContactList/ContactList";
+import { Button } from "../Button/Button";
+import { useRef } from "react";
+import { Modal } from "../Modal/Modal";
 
 export const App = () => {
-  // const [posts, setPosts] = useState<Post[]>([]);
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [isError, setIsError] = useState(false);
-  // const [counter, setCounter] = useState(1);
-  const [isTimerVisible, setIsTimerVisible] = useState(() => {
-    const savedItem = localStorage.getItem("timer-state");
-    if (savedItem !== null) {
-      return JSON.parse(savedItem);
-    }
-    return false
-  });
-
-  // useEffect(() => {
-  //   console.log("hello");
-  //   // getPosts()
-  //   //   .then(({ posts }) => setPosts(posts))
-  //   //   .catch(() => setIsError(true))
-  //   //   .finally(() => setIsLoading(false));
-  //   const fetchdata = async () => {
-  //     try {
-  //       setIsError(false);
-  //       setIsLoading(true);
-  //       const { posts } = await getPosts();
-  //       setPosts(posts);
-  //     } catch {
-  //       setIsError(true);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-  //   fetchdata()
-  // }, []);
-
-  // useEffect(() => {
-  //   console.log("Counter updated!");
-
-  //   return () => {
-  //     console.log("updated");
-  //   };
-  // }, [counter]);
+  const [contacts, setContacts] = useState<Contact[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [page, setPage] = useState(1);
+  const [isBtnVisible, setIsBtnVisible] = useState(false);
+  const didFetch = useRef(false);
+  const [selectedContact, setSelectedContact] = useState<null | Contact>(null);
 
   useEffect(() => {
-    localStorage.setItem("timer-state", JSON.stringify(isTimerVisible));
-  }, [isTimerVisible]);
+    if (didFetch.current && page === 1) return;
+    didFetch.current = true;
+
+    const fetchdata = async () => {
+      try {
+        setIsError(false);
+        setIsLoading(true);
+
+        const newContacts = await getContacts(page);
+
+        setIsBtnVisible(newContacts.length >= 10);
+        setContacts((prev) => [...prev, ...newContacts]);
+      } catch {
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchdata();
+  }, [page]);
+
+  const handleLoadMore = () => {
+    setPage(page + 1);
+  };
+
+  const onModalOpen = (contact: Contact) => {
+    setSelectedContact(contact);
+  };
+
+  const onModalClose = () => {
+    setSelectedContact(null)
+  }
 
   return (
     <>
-      <p>App!</p>
-      {/* <button onClick={() => setCounter(counter + 1)}>Clicks: {counter}</button> */}
-      {/* <ul>
-        {posts.map((post) => (
-          <li key={post.id}>
-            <h3>{post.title}</h3>
-            <p>{post.body}</p>
-          </li>
-        ))}
-      </ul>
+      {contacts.length > 0 && (
+        <ContactsList contacts={contacts} handleClick={onModalOpen} />
+      )}
       {isLoading && <p>LOADING...</p>}
-      {isError && <p>Opps! It's error!</p>} */}
-      <button onClick={() => setIsTimerVisible(!isTimerVisible)}>
-        {isTimerVisible ? "Hide" : "Show"} timer
-      </button>
-      {isTimerVisible && <Timer />}
+      {isError && <p>Opps! It's error!</p>}
+      {!isLoading && isBtnVisible && (
+        <Button
+          textContent="Load more"
+          type="button"
+          onClickHandler={handleLoadMore}
+        />
+      )}
+      {selectedContact && (
+        <Modal onClose={onModalClose}>
+          <h3>{selectedContact.name}</h3>
+          <p>City: {selectedContact.city}</p>
+          <p>Email: {selectedContact.email}</p>
+          <p>Pnone number: {selectedContact.number}</p>
+          <p>Job: {selectedContact.job}</p>
+          <p>{selectedContact.description}</p>
+        </Modal>
+      )}
     </>
   );
 };

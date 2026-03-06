@@ -3,8 +3,9 @@ import { getContacts } from "../../services/contactsApi";
 import type { Contact } from "../../types";
 import { ContactsList } from "../ContactList/ContactList";
 import { Button } from "../Button/Button";
-import { useRef } from "react";
 import { Modal } from "../Modal/Modal";
+import { SearchForm } from "../SearchForm/SearchForm";
+import { useDebouncedCallback } from "use-debounce";
 
 export const App = () => {
   const [contacts, setContacts] = useState<Contact[]>([]);
@@ -12,22 +13,29 @@ export const App = () => {
   const [isError, setIsError] = useState(false);
   const [page, setPage] = useState(1);
   const [isBtnVisible, setIsBtnVisible] = useState(false);
-  const didFetch = useRef(false);
   const [selectedContact, setSelectedContact] = useState<null | Contact>(null);
 
+  const [search, setSearch] = useState("");
+
+  const onSearch = useDebouncedCallback((value) => setSearch(value), 1000);
+
   useEffect(() => {
-    if (didFetch.current && page === 1) return;
-    didFetch.current = true;
+    console.log(1, search);
 
     const fetchdata = async () => {
       try {
         setIsError(false);
         setIsLoading(true);
 
-        const newContacts = await getContacts(page);
+        const newContacts = await getContacts(page, search);
 
         setIsBtnVisible(newContacts.length >= 10);
-        setContacts((prev) => [...prev, ...newContacts]);
+
+        if (page === 1) {
+          setContacts(newContacts);
+        } else {
+          setContacts((prev) => [...prev, ...newContacts]);
+        }
       } catch {
         setIsError(true);
       } finally {
@@ -36,7 +44,7 @@ export const App = () => {
     };
 
     fetchdata();
-  }, [page]);
+  }, [page, search]);
 
   const handleLoadMore = () => {
     setPage(page + 1);
@@ -47,13 +55,16 @@ export const App = () => {
   };
 
   const onModalClose = () => {
-    setSelectedContact(null)
-  }
+    setSelectedContact(null);
+  };
 
   return (
     <>
       {contacts.length > 0 && (
-        <ContactsList contacts={contacts} handleClick={onModalOpen} />
+        <>
+          <SearchForm defaultValue={search} onSearch={onSearch} />
+          <ContactsList contacts={contacts} handleClick={onModalOpen} />
+        </>
       )}
       {isLoading && <p>LOADING...</p>}
       {isError && <p>Opps! It's error!</p>}

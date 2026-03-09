@@ -8,6 +8,8 @@ import {
   Status,
 } from "./ContactList.styled";
 import { EditForm } from "../EditForm/EditForm";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteContact } from "../../services/contactsApi";
 
 interface Props {
   contacts: Contact[];
@@ -16,6 +18,23 @@ interface Props {
 
 export const ContactsList = ({ contacts, handleClick }: Props) => {
   const [contactToEdit, setContactToEdit] = useState<null | Contact>(null);
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: deleteContact,
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ["contacts"] });
+    },
+  });
+
+  const handleDelete = (id: Contact["id"]) => {
+    mutate(id);
+  };
+
+
+  const closeEditForm = () => {
+    setContactToEdit(null)
+  }
 
   return (
     <>
@@ -33,12 +52,17 @@ export const ContactsList = ({ contacts, handleClick }: Props) => {
               onClickHandler={() => handleClick(contact)}
             />
             <Button
+              textContent="Delete"
+              type="button"
+              onClickHandler={() => handleDelete(contact.id)}
+            />
+            <Button
               textContent="Edit contact"
               type="button"
               onClickHandler={() => setContactToEdit(contact)}
             />
             {contactToEdit?.id === contact.id && (
-              <EditForm contact={contactToEdit} />
+              <EditForm contact={contactToEdit} onClose={closeEditForm} />
             )}
           </StyledListItem>
         ))}

@@ -1,13 +1,26 @@
 import { useState } from "react";
 import type { Contact } from "../../types";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { editContact } from "../../services/contactsApi";
 
 interface Props {
   contact: Contact;
+  onClose: () => void;
 }
 
-export const EditForm = ({ contact }: Props) => {
+export const EditForm = ({ contact, onClose }: Props) => {
   const [name, setName] = useState(contact.name);
   const [email, setEmail] = useState(contact.email);
+
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: editContact,
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ["contacts"] });
+      onClose();
+    }
+  });
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
@@ -27,7 +40,7 @@ export const EditForm = ({ contact }: Props) => {
     const email = formData.get("email") as string;
 
     const editedContact = { name, email };
-    console.log(editedContact);
+    mutate({ id: contact.id, editedData: editedContact });
   };
 
   return (

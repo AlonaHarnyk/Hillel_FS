@@ -1,0 +1,10 @@
+.link {
+  color: green;
+  text-align: none;
+}
+
+.activeLink {
+  color: red;
+  text-align: none;
+  font-size: 20px;
+}

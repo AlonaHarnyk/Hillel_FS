@@ -26,8 +26,6 @@ export const getEvents = async () => {
 
 export const getEventById = async (id: ApiEvent["id"]) => {
   const { data } = await api.get<ApiEvent>(`/events/${id}`);
-
-  console.log(data);
   return data;
 };
 

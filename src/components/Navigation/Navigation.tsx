@@ -21,6 +21,7 @@ export const Navigation = () => {
             className={({ isActive }: { isActive: boolean }) =>
               isActive ? css.activeLink : css.link
             }
+            end
           >
             Events
           </NavLink>
@@ -31,6 +32,7 @@ export const Navigation = () => {
             className={({ isActive }: { isActive: boolean }) =>
               isActive ? css.activeLink : css.link
             }
+            end
           >
             Search
           </NavLink>

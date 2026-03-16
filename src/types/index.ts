@@ -11,4 +11,5 @@ export interface ApiEvent {
       localDate: string;
     };
   };
+  classifications: { genre: { name: string } }[];
 }

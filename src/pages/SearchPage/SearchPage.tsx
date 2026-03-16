@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router";
+import { Link, useLocation, useSearchParams } from "react-router";
 import type { ApiEvent } from "../../types/index";
 import { getEventsByName } from "../../services/eventsApi";
 
 export const SearchPage = () => {
   const [events, setEvents] = useState<ApiEvent[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
 
   const eventName = searchParams.get("eventName");
 
@@ -29,7 +30,9 @@ export const SearchPage = () => {
       <ul>
         {events.map(({ name, id }) => (
           <li key={id}>
-            <Link to={id}>{name}</Link>
+            <Link to={`${id}/details`} state={{ from: location }}>
+              {name}
+            </Link>
           </li>
         ))}
       </ul>

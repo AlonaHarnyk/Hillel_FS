@@ -1,14 +1,11 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { getEvents } from "../../services/eventsApi";
 import { type ApiEvent } from "../../types/index";
 import { Link, useLocation } from "react-router";
-import { AuthContext } from "../../context/authContext";
 
 export const EventsPage = () => {
   const [events, setEvents] = useState<ApiEvent[]>([]);
   const location = useLocation();
-
-  const data = useContext(AuthContext);
 
   useEffect(() => {
     //getEvents().then((data) => setEvents(data));
@@ -26,7 +23,6 @@ export const EventsPage = () => {
           </li>
         ))}
       </ul>
-      <button onClick={() => data?.changeA(1000)}>Test click</button>
     </>
   );
 };

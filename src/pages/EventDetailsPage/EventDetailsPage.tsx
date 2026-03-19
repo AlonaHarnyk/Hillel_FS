@@ -7,17 +7,13 @@ import {
 } from "react-router";
 import { getEventById } from "../../services/eventsApi";
 import type { ApiEvent } from "../../types/index";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../context/authContext";
+import { useEffect, useState } from "react";
 
 export const EventDetailsPage = () => {
   const [event, setEvent] = useState<ApiEvent | null>(null);
   const { eventId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-
-  const data = useContext(AuthContext);
-  console.log(data?.a);
 
   useEffect(() => {
     getEventById(eventId as ApiEvent["id"]).then(setEvent);

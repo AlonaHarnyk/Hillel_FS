@@ -12,29 +12,17 @@ export const Navigation = () => {
               isActive ? css.activeLink : css.link
             }
           >
-            Home
+            Users
           </NavLink>
         </li>
         <li>
           <NavLink
-            to="/events"
+            to="/add"
             className={({ isActive }: { isActive: boolean }) =>
               isActive ? css.activeLink : css.link
             }
-            end
           >
-            Events
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/search"
-            className={({ isActive }: { isActive: boolean }) =>
-              isActive ? css.activeLink : css.link
-            }
-            end
-          >
-            Search
+            Add users
           </NavLink>
         </li>
       </ul>

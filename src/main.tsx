@@ -3,14 +3,15 @@ import { App } from "./components/App/App";
 import { StrictMode } from "react";
 import "./index.css";
 import { BrowserRouter } from "react-router";
-import { AuthProvider } from "./context/AuthProvider";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 createRoot(document.getElementById("root") as HTMLDivElement).render(
   <StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
+    <Provider store={store}>
+      <BrowserRouter>
         <App />
-      </AuthProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </Provider>
   </StrictMode>,
 );

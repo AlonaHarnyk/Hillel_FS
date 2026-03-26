@@ -3,6 +3,12 @@ import usersReducer, { type UsersState } from "./users/usersSlice";
 import {
   persistStore,
   persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
   type PersistConfig,
 } from "redux-persist";
 
@@ -20,6 +26,12 @@ export const store = configureStore({
   reducer: {
     users: persistedUserReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 
 export type AppDispatch = typeof store.dispatch;

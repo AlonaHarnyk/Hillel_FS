@@ -6,9 +6,10 @@ import {
   selectIsError,
   selectIsLoading,
 } from "../../redux/users/usersSelectors";
+import type { AppDispatch } from "../../redux/store";
 
 export const App = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const isLoading = useSelector(selectIsLoading);
   const isError = useSelector(selectIsError);
 
@@ -16,7 +17,6 @@ export const App = () => {
     dispatch(getUsersOperation());
   }, [dispatch]);
 
-  // return <UsersList />;
   return (
     <>
       {isLoading && <h1>LOADING..</h1>}

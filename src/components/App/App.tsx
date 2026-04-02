@@ -1,182 +1,77 @@
-import { Formik, Form, Field, ErrorMessage, type FormikHelpers } from "formik";
-import * as yup from "yup";
-import css from "./App.module.css";
+import { useCallback, useMemo, useState } from "react";
+import { UsersList } from "../UsersList/UsersList";
+import { SearchBar } from "../SearhBar/SearchBar";
+import { Child } from "../Child/Child";
 
-type HobbiesValues =
-  | "hiking"
-  | "travelling"
-  | "sport"
-  | "singing"
-  | "skyDiving"
-  | "dancing"
-  | "fishing";
-
-interface FormValues {
+export interface User {
+  id: number;
   name: string;
-  number: string;
-  email: string;
-  city: string;
-  job: string;
-  birthDate: Date;
-  hasJob: "yes" | "no";
-  sex: "male" | "female";
-  description: string;
-  hobbies: HobbiesValues[];
+  age: number;
 }
 
-const initialValues: FormValues = {
-  name: "",
-  number: "",
-  email: "",
-  city: "",
-  job: "",
-  hasJob: "yes",
-  sex: "male",
-  description: "",
-  hobbies: [],
-  birthDate: new Date(),
-};
-
-const contactSchema = yup.object().shape({
-  name: yup
-    .string()
-    .min(2, "Name of contact should contain al least 2 symbols")
-    .max(100, "Name of contact should not contain more than 100 symbols")
-    .required("Name is required for contact :)"),
-  number: yup.string().min(3).max(30).required(),
-  email: yup.string().email().required(),
-  city: yup.string(),
-  job: yup.string(),
-  hasJob: yup.string().oneOf(["yes", "no"]).required(),
-  sex: yup.string().oneOf(["male", "female"]).required(),
-  description: yup.string().max(500),
-  hobbies: yup
-    .array()
-    .of(
-      yup
-        .string()
-        .oneOf([
-          "hiking",
-          "travelling",
-          "sport",
-          "singing",
-          "skyDiving",
-          "dancing",
-          "fishing",
-        ]),
-    ),
-  birthDate: yup
-    .date()
-    .min(new Date(1900, 0, 1))
-    .required(),
-});
+const data = [
+  {
+    id: 1,
+    name: "Olha",
+    age: 20,
+  },
+  {
+    id: 2,
+    name: "Roman",
+    age: 30,
+  },
+  {
+    id: 3,
+    name: "Iryna",
+    age: 40,
+  },
+  {
+    id: 4,
+    name: "Ann",
+    age: 50,
+  },
+  {
+    id: 5,
+    name: "Petro",
+    age: 60,
+  },
+];
 
 export const App = () => {
-  const handleSubmit = (
-    values: FormValues,
-    formikHelpers: FormikHelpers<FormValues>,
-  ) => {
-    console.log(values);
-    formikHelpers.resetForm();
+  const [users] = useState<User[]>(data);
+  const [search, setSearch] = useState("");
+  const [count, setCount] = useState(0);
+
+  const handleSearch = (search: string) => {
+    setSearch(search);
   };
 
+  const filteredUsers = useMemo(() => {
+    console.log("memo");
+    return users.filter((user) =>
+      user.name.toLowerCase().includes(search.toLowerCase()),
+    );
+  }, [search, users]);
+
+  // const filteredUsers = users.filter((user) =>
+  //     user.name.toLowerCase().includes(search.toLowerCase()),
+  //   );
+
+  // const handleClick = () => {
+  //   console.log('Test button is clicked!')
+  // }
+
+  const handleClick = useCallback(() => {
+    console.log("Test button is clicked!");
+  }, []);
+
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-      validationSchema={contactSchema}
-    >
-      {({ errors }) => {
-        console.log(errors);
-        return (
-          <Form>
-            <label>
-              Name: <Field type="text" name="name" />{" "}
-              <ErrorMessage name="name" className={css.error} component="p" />
-            </label>
-            <label>
-              Birth Date: <Field type="date" name="birthDate" />
-              <ErrorMessage name="date" className={css.error} component="p" />
-            </label>
-            <label>
-              Number: <Field type="text" name="number" />
-              <ErrorMessage name="number" className={css.error} component="p" />
-            </label>
-            <label>
-              Email: <Field type="email" name="email" />
-              <ErrorMessage name="email" className={css.error} component="p" />
-            </label>
-            <label>
-              City: <Field type="text" name="city" />
-              <ErrorMessage name="city" className={css.error} component="p" />
-            </label>
-            <label>
-              Job: <Field type="text" name="job" />
-              <ErrorMessage name="job" className={css.error} component="p" />
-            </label>
-            <fieldset>
-              <legend>Has contact a job? </legend>
-              <label>
-                <Field type="radio" value="yes" name="hasJob" /> Yes
-              </label>
-              <label>
-                <Field type="radio" value="no" name="hasJob" /> No
-              </label>
-              <ErrorMessage name="hasJob" className={css.error} component="p" />
-            </fieldset>
-            <Field as="select" name="sex">
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </Field>
-            <ErrorMessage name="sex" className={css.error} component="p" />
-            <fieldset>
-              <legend>Hobbies</legend>
-              <label>
-                <Field type="checkbox" value="hiking" name="hobbies" />
-                Hiking
-              </label>
-              <label>
-                <Field type="checkbox" value="travelling" name="hobbies" />
-                Travelling
-              </label>
-              <label>
-                <Field type="checkbox" value="sport" name="hobbies" />
-                Sport
-              </label>
-              <label>
-                <Field type="checkbox" value="singing" name="hobbies" />
-                Singing
-              </label>
-              <label>
-                <Field type="checkbox" value="skyDiving" name="hobbies" />
-                Skydiving
-              </label>
-              <label>
-                <Field type="checkbox" value="dancing" name="hobbies" />
-                Dancing
-              </label>
-              <label>
-                <Field type="checkbox" value="fishing" name="hobbies" />
-                Fishing
-              </label>
-              <ErrorMessage
-                name="hobbies"
-                className={css.error}
-                component="p"
-              />
-            </fieldset>
-            <label>
-              <Field as="textarea" name="description"></Field>
-              <ErrorMessage
-                name="description"
-                className={css.error}
-                component="p"
-              />
-            </label>
-            <button>Save</button>
-          </Form>
-        );
-      }}
-    </Formik>
+    <>
+      <SearchBar onSearch={handleSearch} />
+      <UsersList users={filteredUsers} />
+      <button onClick={() => setCount(count + 1)}>Click</button>
+      <p>Count: {count}</p>
+      <Child onTestClick={handleClick} />
+    </>
   );
 };

@@ -27,6 +27,7 @@ export const useAuthStore = create<AuthStore>()((set) => ({
 }));
 
 export const selectSetuser = (state: AuthStore) => state.setUser;
+export const selectClearUser = (state: AuthStore) => state.clearAuth;
 export const selectIsAuth = (state: AuthStore) => state.isAuth;
 export const selectUser = (state: AuthStore) => state.user;
 export const selectSetIsFetching = (state: AuthStore) => state.setIsFetching;

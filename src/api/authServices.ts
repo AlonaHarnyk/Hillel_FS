@@ -1,5 +1,5 @@
 import type { AuthData, User } from "../types/auth";
-import { api } from "./api";
+import { api, type RefreshResponce } from "./api";
 
 export const registerUser = async (authData: AuthData) => {
   const { data } = await api.post<User>("/auth/register", authData);
@@ -18,4 +18,9 @@ export const logoutUser = () => {
 export const getCurrentUser = async () => {
   const { data } = await api.get<User>("/users/current");
   return data;
+};
+
+export const refreshSession = async () => {
+  const { data } = await api.post<RefreshResponce>("/auth/refresh");
+  return data.success;
 };

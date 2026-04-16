@@ -1,5 +1,5 @@
 import { useEffect, type ReactNode } from "react";
-import { getCurrentUser } from "../../api/authServices";
+import { getCurrentUser, refreshSession } from "../../api/authServices";
 import {
   selectSetIsFetching,
   selectSetuser,
@@ -16,11 +16,18 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     setIsFetching(true);
-    getCurrentUser()
-      .then((user) => {
+
+    const init = async () => {
+      const isSuccess = await refreshSession();
+      if (isSuccess) {
+        setIsFetching(true);
+        const user = await getCurrentUser();
         setUser(user);
-      })
-      .finally(() => setIsFetching(false));
+        setIsFetching(false);
+      }
+    };
+    init();
   }, [setIsFetching, setUser]);
   return children;
 };
+

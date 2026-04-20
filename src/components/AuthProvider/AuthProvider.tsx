@@ -15,14 +15,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const setIsFetching = useAuthStore(selectSetIsFetching);
 
   useEffect(() => {
-    setIsFetching(true);
-
     const init = async () => {
-      const isSuccess = await refreshSession();
-      if (isSuccess) {
+      try {
         setIsFetching(true);
-        const user = await getCurrentUser();
-        setUser(user);
+        const isSuccess = await refreshSession();
+        if (isSuccess) {
+          const user = await getCurrentUser();
+          setUser(user);
+        }
+      } catch {
         setIsFetching(false);
       }
     };
@@ -30,4 +31,3 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }, [setIsFetching, setUser]);
   return children;
 };
-

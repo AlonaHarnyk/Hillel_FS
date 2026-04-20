@@ -15,7 +15,6 @@ let refreshPromise: Promise<AxiosResponse<RefreshResponce>> | null = null;
 api.interceptors.response.use(
   (res) => res,
   async (error) => {
-    console.log(error.response);
     if (!error.response || error.response.status !== 401) {
       return Promise.reject(error);
     }

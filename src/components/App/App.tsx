@@ -17,7 +17,7 @@ interface FormValues {
   email: string;
   city: string;
   job: string;
-  birthDate: Date;
+  birthDate: Date | string;
   hasJob: "yes" | "no";
   sex: "male" | "female";
   description: string;
@@ -34,7 +34,7 @@ const initialValues: FormValues = {
   sex: "male",
   description: "",
   hobbies: [],
-  birthDate: new Date(),
+  birthDate: new Date().toISOString().split('T')[0],
 };
 
 const contactSchema = yup.object().shape({

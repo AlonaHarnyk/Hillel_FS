@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "name": "Olha",
+    "age": 10
+  },
+  {
+    "name": "Yana",
+    "age": 20
+  },
+  {
+    "name": "Iryna",
+    "age": 30
+  }
+]

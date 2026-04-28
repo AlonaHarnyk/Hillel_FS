@@ -5,6 +5,10 @@
   "keywords": [
     "node"
   ],
+  "scripts": {
+    "start": "node src/index",
+    "server": "node src/server"
+  },
   "homepage": "https://github.com/AlonaHarnyk/Hillel_FS#readme",
   "bugs": {
     "url": "https://github.com/AlonaHarnyk/Hillel_FS/issues"
@@ -17,7 +21,7 @@
   "author": "Alona",
   "type": "module",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "dependencies": {
+    "yargs": "^18.0.0"
   }
 }

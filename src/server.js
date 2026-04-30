@@ -9,6 +9,16 @@ const server = http.createServer((req, res) => {
     const user = { name: "John" };
     res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify(user));
+  } else if (req.method === "POST" && req.url === "/test-body") {
+    let body = "";
+    req.on("data", (chunk) => {
+      body += chunk;
+    });
+
+    req.on("end", () => {
+      console.log(body);
+      res.end("Data received");
+    });
   } else {
     res.statusCode = 404;
     res.end("Not found");

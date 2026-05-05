@@ -1,30 +1,37 @@
-import http from "node:http";
+import express from "express";
+import usersRouter from "./routers/users.js";
+import { notFoundHandler } from "./middlewares/notFoundHandler.js";
 
-const server = http.createServer((req, res) => {
-  if (req.url === "/" && req.method === "GET") {
-    res.end("Home page");
-  } else if (req.url === "/about" && req.method === "GET") {
-    res.end("About page data");
-  } else if (req.method === "POST" && req.url === "/") {
-    const user = { name: "John" };
-    res.setHeader("Content-Type", "application/json");
-    res.end(JSON.stringify(user));
-  } else if (req.method === "POST" && req.url === "/test-body") {
-    let body = "";
-    req.on("data", (chunk) => {
-      body += chunk;
-    });
+const PORT = 8000;
 
-    req.on("end", () => {
-      console.log(body);
-      res.end("Data received");
-    });
-  } else {
-    res.statusCode = 404;
-    res.end("Not found");
+const app = express();
+app.use(express.json());
+
+// app.use((req, res, next) => {
+//   console.log(`Method: ${req.method}, url: ${req.url}`);
+//   next();
+// });
+
+// app.get("/", (req, res) => {
+//   console.log("Hello!");
+//   res.json({ message: "Hello!" });
+// });
+
+app.use(usersRouter);
+
+app.use(notFoundHandler);
+
+app.use((error, req, res, next) => {
+  // res.status(500).json({ message: error.message });
+  res.status(500).json({ message: "Something went wrong!" });
+});
+
+app.listen(PORT, (error) => {
+  if (error) {
+    console.log("Error with server starting!");
+    return;
   }
+  console.log(`Server in running at port ${PORT}`);
 });
 
-server.listen(8000, () => {
-  console.log("Server is running!");
-});
+export default app;

@@ -6,8 +6,8 @@
     "node"
   ],
   "scripts": {
-    "start": "node src/index",
-    "server": "node src/server"
+    "start": "node src/server",
+    "dev": "nodemon src/server"
   },
   "homepage": "https://github.com/AlonaHarnyk/Hillel_FS#readme",
   "bugs": {
@@ -22,6 +22,9 @@
   "type": "module",
   "main": "index.js",
   "dependencies": {
-    "yargs": "^18.0.0"
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }

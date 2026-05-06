@@ -16,7 +16,7 @@ export const TodoList = () => {
   };
 
   return (
-    <div data-testId="todo-list">
+    <div data-testid="todo-list">
       <h2>Todo list</h2>
       <input
         type="text"

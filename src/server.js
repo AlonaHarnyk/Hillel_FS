@@ -1,6 +1,7 @@
 import express from "express";
 import usersRouter from "./routers/users.js";
 import { notFoundHandler } from "./middlewares/notFoundHandler.js";
+import { errorHandler } from "./middlewares/errorHandler.js";
 
 const PORT = 8000;
 
@@ -21,10 +22,7 @@ app.use(usersRouter);
 
 app.use(notFoundHandler);
 
-app.use((error, req, res, next) => {
-  // res.status(500).json({ message: error.message });
-  res.status(500).json({ message: "Something went wrong!" });
-});
+app.use(errorHandler);
 
 app.listen(PORT, (error) => {
   if (error) {

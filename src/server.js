@@ -1,34 +1,24 @@
 import express from "express";
-import usersRouter from "./routers/users.js";
+import todosRouter from "./routers/todos.js";
 import { notFoundHandler } from "./middlewares/notFoundHandler.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
+import { connectDb } from "./db/connectDb.js";
+import "dotenv/config";
 
-const PORT = 8000;
+const PORT = process.env.PORT;
 
 const app = express();
 app.use(express.json());
 
-// app.use((req, res, next) => {
-//   console.log(`Method: ${req.method}, url: ${req.url}`);
-//   next();
-// });
-
-// app.get("/", (req, res) => {
-//   console.log("Hello!");
-//   res.json({ message: "Hello!" });
-// });
-
-app.use(usersRouter);
+app.use(todosRouter);
 
 app.use(notFoundHandler);
 
 app.use(errorHandler);
 
-app.listen(PORT, (error) => {
-  if (error) {
-    console.log("Error with server starting!");
-    return;
-  }
+await connectDb();
+
+app.listen(PORT, () => {
   console.log(`Server in running at port ${PORT}`);
 });
 

@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { celebrate } from "celebrate";
 import {
   addTodo,
   deleteTodo,
@@ -7,14 +8,24 @@ import {
   updateOrCreate,
   updateTodo,
 } from "../controllers/todo.js";
+import {
+  createTodoSchema,
+  idSchema,
+  updateTodoSchema,
+} from "../validation/todo.js";
 
 const router = Router();
 
 router.get("/todos", getTodos);
-router.get("/todos/:id", getTodoById);
-router.post("/todos", addTodo);
-router.delete("/todos/:id", deleteTodo);
-router.patch("/todos/:id", updateTodo);
-router.put("/todos/:id", updateOrCreate);
+router.get("/todos/:id", celebrate(idSchema), getTodoById);
+router.post("/todos", celebrate(createTodoSchema), addTodo);
+router.delete("/todos/:id", celebrate(idSchema), deleteTodo);
+router.patch("/todos/:id", celebrate(updateTodoSchema), updateTodo);
+router.put(
+  "/todos/:id",
+  celebrate(createTodoSchema),
+  celebrate(idSchema),
+  updateOrCreate,
+);
 
 export default router;

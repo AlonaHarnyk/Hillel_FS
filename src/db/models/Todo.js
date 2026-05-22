@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import { STATUSES } from "../../constants/index.js";
 
 const todoSchema = new Schema(
   {
@@ -12,7 +13,7 @@ const todoSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ["new", "inProgress", "done"],
+      enum: STATUSES,
       default: "new",
     },
   },

@@ -16,6 +16,10 @@ const todoSchema = new Schema(
       enum: STATUSES,
       default: "new",
     },
+    estimationInDays: {
+      type: Number,
+      required: true,
+    },
   },
   { versionKey: false, timestamps: true },
 );

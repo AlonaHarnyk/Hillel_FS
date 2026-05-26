@@ -2,14 +2,25 @@ import { Todo } from "../db/models/Todo.js";
 import createHttpError from "http-errors";
 import {
   addTodoService,
+  deleteTodoService,
   getTodosService,
   getTodosServiceById,
   updateTodoService,
 } from "../services/todo.js";
 
 export const getTodos = async (req, res) => {
-  const todos = await getTodosService();
-  res.json(todos);
+  const { page, perPage, sortBy, sortOrder, status, minDays, maxDays } =
+    req.query;
+  const response = await getTodosService({
+    page,
+    perPage,
+    sortBy,
+    sortOrder,
+    status,
+    minDays,
+    maxDays,
+  });
+  res.json(response);
 };
 
 export const getTodoById = async (req, res) => {

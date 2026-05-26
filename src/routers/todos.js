@@ -10,13 +10,14 @@ import {
 } from "../controllers/todo.js";
 import {
   createTodoSchema,
+  getTodosSchema,
   idSchema,
   updateTodoSchema,
 } from "../validation/todo.js";
 
 const router = Router();
 
-router.get("/todos", getTodos);
+router.get("/todos", celebrate(getTodosSchema), getTodos);
 router.get("/todos/:id", celebrate(idSchema), getTodoById);
 router.post("/todos", celebrate(createTodoSchema), addTodo);
 router.delete("/todos/:id", celebrate(idSchema), deleteTodo);

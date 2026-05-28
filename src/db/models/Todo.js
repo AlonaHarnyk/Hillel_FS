@@ -20,8 +20,18 @@ const todoSchema = new Schema(
       type: Number,
       required: true,
     },
+    isUrgent: {
+      type: Boolean,
+      default: false,
+    },
   },
   { versionKey: false, timestamps: true },
 );
+
+// todoSchema.index({ title: "text", description: "text" });
+
+// todoSchema.index({ status: 1 });
+
+// todoSchema.index({ status: 1, isUrgent: 1 });
 
 export const Todo = model("Todo", todoSchema);

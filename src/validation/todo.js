@@ -16,6 +16,8 @@ export const getTodosSchema = {
     status: Joi.string().valid(...STATUSES),
     minDays: Joi.number().integer(),
     maxDays: Joi.number().integer(),
+    isUrgent: Joi.boolean(),
+    search: Joi.string(),
   }),
 };
 
@@ -27,6 +29,7 @@ export const createTodoSchema = {
     description: Joi.string().min(2).max(350).required(),
     status: Joi.string().valid(...STATUSES),
     estimationInDays: Joi.number().integer().required(),
+    isUrgent: Joi.boolean(),
   }),
 };
 
@@ -36,6 +39,7 @@ export const updateTodoSchema = {
     description: Joi.string().min(2).max(350),
     status: Joi.string().valid(...STATUSES),
     estimationInDays: Joi.number().integer(),
+    isUrgent: Joi.boolean(),
   }).min(1),
   [Segments.PARAMS]: Joi.object({
     id: Joi.string().custom(validateId).required(),

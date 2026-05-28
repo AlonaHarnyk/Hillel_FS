@@ -9,8 +9,17 @@ import {
 } from "../services/todo.js";
 
 export const getTodos = async (req, res) => {
-  const { page, perPage, sortBy, sortOrder, status, minDays, maxDays } =
-    req.query;
+  const {
+    page,
+    perPage,
+    sortBy,
+    sortOrder,
+    status,
+    minDays,
+    maxDays,
+    isUrgent,
+    search,
+  } = req.query;
   const response = await getTodosService({
     page,
     perPage,
@@ -19,6 +28,8 @@ export const getTodos = async (req, res) => {
     status,
     minDays,
     maxDays,
+    isUrgent,
+    search,
   });
   res.json(response);
 };

@@ -17,13 +17,13 @@ import {
 
 const router = Router();
 
-router.get("/todos", celebrate(getTodosSchema), getTodos);
-router.get("/todos/:id", celebrate(idSchema), getTodoById);
-router.post("/todos", celebrate(createTodoSchema), addTodo);
-router.delete("/todos/:id", celebrate(idSchema), deleteTodo);
-router.patch("/todos/:id", celebrate(updateTodoSchema), updateTodo);
+router.get("/", celebrate(getTodosSchema), getTodos);
+router.get("/:id", celebrate(idSchema), getTodoById);
+router.post("/", celebrate(createTodoSchema), addTodo);
+router.delete("/:id", celebrate(idSchema), deleteTodo);
+router.patch("/:id", celebrate(updateTodoSchema), updateTodo);
 router.put(
-  "/todos/:id",
+  "/:id",
   celebrate(createTodoSchema),
   celebrate(idSchema),
   updateOrCreate,

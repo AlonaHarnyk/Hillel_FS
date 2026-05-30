@@ -1,4 +1,5 @@
 import express from "express";
+import authRouter from "./routers/auth.js";
 import todosRouter from "./routers/todos.js";
 import { notFoundHandler } from "./middlewares/notFoundHandler.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
@@ -11,7 +12,8 @@ const PORT = process.env.PORT;
 const app = express();
 app.use(express.json());
 
-app.use(todosRouter);
+app.use("/auth", authRouter);
+app.use("/todos", todosRouter);
 
 app.use(notFoundHandler);
 

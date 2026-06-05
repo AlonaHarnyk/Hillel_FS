@@ -6,11 +6,13 @@ import { errorHandler } from "./middlewares/errorHandler.js";
 import { connectDb } from "./db/connectDb.js";
 import "dotenv/config";
 import { errors } from "celebrate";
+import cookieParser from "cookie-parser";
 
 const PORT = process.env.PORT;
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/auth", authRouter);
 app.use("/todos", todosRouter);

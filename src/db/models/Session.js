@@ -26,4 +26,6 @@ const sessionSchema = new Schema(
   { timestamps: true, versionKey: false },
 );
 
+sessionSchema.index({ userId: 1 });
+
 export const Session = model("Session", sessionSchema);

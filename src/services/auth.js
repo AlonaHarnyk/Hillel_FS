@@ -18,3 +18,10 @@ export const createSession = (userId) => {
 
   return Session.create(session);
 };
+
+export const deleteSessionByUserId = (userId) => Session.deleteOne({ userId });
+
+export const deleteSessionById = (sessionId) =>
+  Session.deleteOne({ _id: sessionId });
+
+export const findSessionById = (id) => Session.findById(id);

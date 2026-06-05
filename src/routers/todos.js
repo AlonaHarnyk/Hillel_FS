@@ -14,8 +14,11 @@ import {
   idSchema,
   updateTodoSchema,
 } from "../validation/todo.js";
+import { checkToken } from "../middlewares/checkToken.js";
 
 const router = Router();
+
+router.use(checkToken);
 
 router.get("/", celebrate(getTodosSchema), getTodos);
 router.get("/:id", celebrate(idSchema), getTodoById);

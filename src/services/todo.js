@@ -10,10 +10,11 @@ export const getTodosService = async ({
   maxDays,
   isUrgent,
   search,
+  authorId,
 }) => {
   const skip = (page - 1) * perPage;
 
-  const todosQuery = Todo.find();
+  const todosQuery = Todo.find({ authorId }).populate("authorId", "email");
 
   // const indexes = await Todo.collection.indexes();
 
@@ -81,14 +82,16 @@ export const getTodosService = async ({
   return { todos, totalCount, totalPages };
 };
 
-export const getTodosServiceById = (id) => Todo.findById(id);
+export const getTodosServiceById = (id, authorId) =>
+  Todo.findOne({ authorId, _id: id }).populate("authorId", "email createdAt");
 
 export const addTodoService = (todoData) => Todo.create(todoData);
 
-export const deleteTodoService = (id) => Todo.findByIdAndDelete(id);
+export const deleteTodoService = (id, authorId) =>
+  Todo.findOneAndDelete({ authorId, _id: id });
 
-export const updateTodoService = async (id, todoData, options) => {
-  const result = await Todo.findByIdAndUpdate(id, todoData, {
+export const updateTodoService = async (id, authorId, todoData, options) => {
+  const result = await Todo.findOneAndUpdate({ authorId, _id: id }, todoData, {
     returnDocument: "after",
     includeResultMetadata: true,
     ...options,

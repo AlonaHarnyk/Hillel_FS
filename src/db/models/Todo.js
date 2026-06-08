@@ -24,6 +24,11 @@ const todoSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    authorId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
   },
   { versionKey: false, timestamps: true },
 );

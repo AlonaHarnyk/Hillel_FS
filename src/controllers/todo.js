@@ -20,6 +20,7 @@ export const getTodos = async (req, res) => {
     isUrgent,
     search,
   } = req.query;
+  const authorId = req.user._id;
   const response = await getTodosService({
     page,
     perPage,
@@ -30,13 +31,15 @@ export const getTodos = async (req, res) => {
     maxDays,
     isUrgent,
     search,
+    authorId,
   });
   res.json(response);
 };
 
 export const getTodoById = async (req, res) => {
   const { id } = req.params;
-  const todo = await getTodosServiceById(id);
+  const authorId = req.user._id;
+  const todo = await getTodosServiceById(id, authorId);
   // if (todo === null) {
   if (!todo) {
     // res.status(404).json({ message: "Todo not found!" });
@@ -49,13 +52,15 @@ export const getTodoById = async (req, res) => {
 
 export const addTodo = async (req, res) => {
   const body = req.body;
-  const newTodo = await addTodoService(body);
+  const authorId = req.user._id;
+  const newTodo = await addTodoService({ ...body, authorId });
   res.status(201).json(newTodo);
 };
 
 export const deleteTodo = async (req, res) => {
   const { id } = req.params;
-  const deletedTodo = await deleteTodoService(id);
+  const authorId = req.user._id;
+  const deletedTodo = await deleteTodoService(id, authorId);
   if (!deletedTodo) {
     // res.status(404).json({ message: "Todo not found!" });
     // return;
@@ -67,11 +72,12 @@ export const deleteTodo = async (req, res) => {
 export const updateTodo = async (req, res) => {
   const { id } = req.params;
   const body = req.body;
+  const authorId = req.user._id;
   // const updatedTodo = await Todo.findByIdAndUpdate(id, body, {
   //   returnDocument: "after",
   // });
 
-  const result = await updateTodoService(id, body);
+  const result = await updateTodoService(id, authorId, body);
   if (!result) {
     // res.status(404).json({ message: "Todo not found!" });
     // return;
@@ -83,13 +89,14 @@ export const updateTodo = async (req, res) => {
 export const updateOrCreate = async (req, res) => {
   const { id } = req.params;
   const body = req.body;
+  const authorId = req.user._id;
   // const result = await Todo.findByIdAndUpdate(id, body, {
   //   returnDocument: "after",
   //   upsert: true,
   //   includeResultMetadata: true,
   // });
 
-  const { data, isUpdated } = await updateTodoService(id, body, {
+  const { data, isUpdated } = await updateTodoService(id, authorId, body, {
     upsert: true,
   });
 

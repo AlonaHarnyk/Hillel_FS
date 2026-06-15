@@ -1,6 +1,7 @@
 import express from "express";
 import authRouter from "./routers/auth.js";
 import todosRouter from "./routers/todos.js";
+import contactsRouter from "./routers/contact.js";
 import { notFoundHandler } from "./middlewares/notFoundHandler.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 import { connectDb } from "./db/connectDb.js";
@@ -14,8 +15,9 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/auth", authRouter);
-app.use("/todos", todosRouter);
+// app.use("/auth", authRouter);
+// app.use("/todos", todosRouter);
+app.use("/contacts", contactsRouter);
 
 app.use(notFoundHandler);
 

@@ -6,7 +6,7 @@ export const parseFile = multer({
     fileSize: 5 * 1024 * 1024,
   },
   fileFilter: (req, file, callback) => {
-    if (file.mimetype !== "image/jpeg" && file.mimetype !== "image/jpg") {
+    if (file.mimetype !== "image/jpeg") {
       callback(new Error("Wrong type!!!"));
       return;
     }

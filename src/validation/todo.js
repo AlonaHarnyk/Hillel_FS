@@ -1,9 +1,6 @@
 import { Joi, Segments } from "celebrate";
 import { STATUSES } from "../constants/index.js";
-import { isValidObjectId } from "mongoose";
-
-const validateId = (id, utils) =>
-  isValidObjectId(id) ? id : utils.message("Invalid id!");
+import { validateId } from "./general.js";
 
 export const getTodosSchema = {
   [Segments.QUERY]: Joi.object({
@@ -41,12 +38,6 @@ export const updateTodoSchema = {
     estimationInDays: Joi.number().integer(),
     isUrgent: Joi.boolean(),
   }).min(1),
-  [Segments.PARAMS]: Joi.object({
-    id: Joi.string().custom(validateId).required(),
-  }),
-};
-
-export const idSchema = {
   [Segments.PARAMS]: Joi.object({
     id: Joi.string().custom(validateId).required(),
   }),

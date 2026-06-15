@@ -8,7 +8,7 @@ import {
   findSessionById,
 } from "../services/auth.js";
 import bcrypt from "bcrypt";
-import { clearCookies, setCookies } from "../utils/index.js";
+import { clearCookies, setCookies } from "../utils/cookies.js";
 
 export const signUp = async (req, res) => {
   const { name, email, password } = req.body;

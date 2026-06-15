@@ -11,10 +11,10 @@ import {
 import {
   createTodoSchema,
   getTodosSchema,
-  idSchema,
   updateTodoSchema,
 } from "../validation/todo.js";
 import { checkToken } from "../middlewares/checkToken.js";
+import { idSchema } from "../validation/general.js";
 
 const router = Router();
 

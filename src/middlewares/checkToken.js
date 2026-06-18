@@ -1,7 +1,11 @@
 import createHttpError from "http-errors";
 import { findSessionById, findUserById } from "../services/auth.js";
+import { logger } from "../utils/logger.js";
 
 export const checkToken = async (req, res, next) => {
+  logger.info("User in checkToken middleware");
+  logger.warn("Test");
+
   const { accessToken, sessionId } = req.cookies;
 
   if (!accessToken || !sessionId) {

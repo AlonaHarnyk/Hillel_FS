@@ -8,15 +8,17 @@ import { connectDb } from "./db/connectDb.js";
 import "dotenv/config";
 import { errors } from "celebrate";
 import cookieParser from "cookie-parser";
+import { requestLogger } from "./middlewares/requestLogger.js";
 
 const PORT = process.env.PORT;
 
 const app = express();
+app.use(requestLogger);
 app.use(express.json());
 app.use(cookieParser());
 
 // app.use("/auth", authRouter);
-// app.use("/todos", todosRouter);
+app.use("/todos", todosRouter);
 app.use("/contacts", contactsRouter);
 
 app.use(notFoundHandler);
